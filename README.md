@@ -3,7 +3,7 @@
 > A repository configurator  
 > WIP
 
-Usage: `node index.js`
+Run: `node --run new`
 
 - Creates a repo  
 - Sets configuation (code scanning, allow rebase etc)  
@@ -12,8 +12,7 @@ Usage: `node index.js`
   - workflows (`test`, `publish` etc ...)
   - rulesets
   
-*rulesets in `repo/rulesets` give a somewhat accurate picture of 
-currently supported conventions
+*see rulesets in `repo/rulesets` for currently supported conventions
 
 ## todo
 
