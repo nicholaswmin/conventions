@@ -1,7 +1,7 @@
 # gh-good-repo
 
 > A repository configurator  
-> WIP (token is hardcoded)
+> WIP
 
 Usage: `node index.js`
 
