@@ -12,8 +12,8 @@ Usage: `node index.js`
   - workflows (`test`, `publish` etc ...)
   - rulesets
   
-The rulesets in `repo/rulesets` give a somewhat accurate picture of   
-supported conventions
+*rulesets in `repo/rulesets` give a somewhat accurate picture of 
+currently supported conventions
 
 ## todo
 
