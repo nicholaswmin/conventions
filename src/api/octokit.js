@@ -1,8 +1,7 @@
 import { Octokit } from '@octokit/rest'
 
-const createOctokit = ({ token }) => {
+const createOctokit = () => {
   return new Octokit({
-    throw Error('Missing token')
     // @TODO login properly
     auth: '***',
     throttle: {

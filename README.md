@@ -12,7 +12,8 @@ Run: `node --run new`
   - workflows (`test`, `publish` etc ...)
   - rulesets
   
-*see rulesets in `repo/rulesets` for currently supported conventions
+*see rulesets in `repo/rulesets` for currently supported conventions  
+*api abstractions over `octokit` are in `./apis`
 
 ## todo
 

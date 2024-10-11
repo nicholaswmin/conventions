@@ -1,8 +1,8 @@
-class Repo {
+class Settings {
   constructor({ name, owner, description }, { node_version, license }) {
     // github metadata
     this.repo = name.trim()
-    this.owner = owner.trim()
+    this.owner = (owner || 'guest').trim()
     this.description = description.trim()
 
     this.repo_url  = `https://github.com/${this.owner}/${this.name}`
@@ -13,6 +13,10 @@ class Repo {
     this.license = license.trim()
   }
   
+  setAuthenticatedOwner({ data }) {
+    this.owner = data.trim()
+  }
+
   get info() {
     return { repo: this.repo, owner: this.owner }
   }
@@ -26,4 +30,4 @@ class Repo {
   }
 }
 
-export { Repo }
+export { Settings }

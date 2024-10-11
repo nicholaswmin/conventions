@@ -1,11 +1,13 @@
 import { join } from 'node:path'
-import { Api } from './src/api/index.js'
+import { createApi } from './src/api/index.js'
 
-const api = new Api()
-const repo = await api.init(
+const api = await createApi(
+  join(import.meta.dirname, 'apis'),
   { name: 'fsm', description: 'A state machine' }, 
-  { engine: '22.9', license: 'MIT' }
+  { node_version: '22.9', license: 'MIT' }
 )
+
+await api.auth()
 
 const assets = {
   rulesets: await getRulesets(),
@@ -13,7 +15,7 @@ const assets = {
     await getDocument('README.md'),
     ...await getDocuments('.github'),
     ...await getDocuments('.github/workflows'),
-  ].map(doc => doc.replaceTokens(repo.tokens))
+  ].map(doc => doc.replaceTokens(api.settings.tokens))
 }
 
 const results = {
