@@ -10,12 +10,12 @@ const getApis = async dirpath => {
   return listed.filter(isApi).map(toName) 
 }
 
-const createApi = async (dirpath, ...args) => {
+const createApi = async ({ apis }, ...args) => {
   const api = new Api(...args)
-  const filenames = await getApis(dirpath)
+  const filenames = await getApis(apis)
 
   for (const filename of filenames) {
-    const imported = await import(join(dirpath, filename))
+    const imported = await import(join(apis, filename))
     api.register(imported.default)
   }
 

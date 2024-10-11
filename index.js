@@ -1,8 +1,10 @@
 import { join } from 'node:path'
 import { createApi } from './src/api/index.js'
+import { getDocument, getDocuments, getRulesets } from './src/fs-repo/index.js'
 
+// extend from `./apis`
 const api = await createApi(
-  join(import.meta.dirname, 'apis'),
+  { apis: join(import.meta.dirname, 'apis') },
   { name: 'fsm', description: 'A state machine' }, 
   { node_version: '22.9', license: 'MIT' }
 )
