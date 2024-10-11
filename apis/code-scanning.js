@@ -5,7 +5,7 @@ export default {
     // to turn-off: 'not-configured'
     return this.rest.codeScanning
       .updateDefaultSetup({ 
-        ...this.settings.info,
+        ...this.repo.path,
         state: 'configured' 
       })    
   }

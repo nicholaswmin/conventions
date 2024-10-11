@@ -1,34 +1,35 @@
 export default {
   name: 'repos',
-  async create() {
+  async create(...args) {
+    const deletion = await this.repos.exists() 
+      ? await this.rest.delete(this.repo.path)
+      : false
 
-    return {
-      delete: await this.exists() 
-        ? await this.rest.delete(this.settings.info)
-        : false,
+    const creation = await this.rest.repos
+      .createForAuthenticatedUser({ 
+        name: this.repo.name,
+        description: this.repo.description,
+        homepage: this.repo.repo_url,
 
-      createForAuthenticatedUser: await this.rest.repos
-        .createForAuthenticatedUser({ 
-          name: this.settings.info.repo,
-          description: this.settings.info.description,
-          homepage: this.settings.info.repo_url,
+        has_issues: true,
+        has_projects: false,
+        has_wiki: false,
+        has_discussions: false,
 
-          has_issues: true,
-          has_projects: false,
-          has_wiki: false,
-          has_discussions: false,
+        gitignore_template: 'Node',
+        license_template: 'MIT',
+        
+        allow_squash_merge: true,
+        allow_rebase_merge: true,
+        delete_branch_on_merge: true
+      })
 
-          gitignore_template: 'Node',
-          license_template: 'MIT',
-          
-          allow_squash_merge: true,
-          allow_rebase_merge: true,
-          delete_branch_on_merge: true
-        }),
+    const vReporting = await this.rest.repos
+      .enablePrivateVulnerabilityReporting(this.repo.path)
 
-      enablePrivateVulnerabilityReporting: await this.rest.repos
-        .enablePrivateVulnerabilityReporting(this.settings)
-    }
+    this.repo.update(...args)
+
+    return { deletion, creation, vReporting }
   },
   
   async addRulesets(rulesets) {
@@ -36,7 +37,7 @@ export default {
 
     for (const ruleset of rulesets) {
       results.push(await this.rest.repos.createRepoRuleset({ 
-        ...this.settings, 
+        ...this.repo, 
         ...ruleset
       }))
     } 
@@ -49,7 +50,7 @@ export default {
 
     for (const document of documents) {
       results.push(await this.rest.repos.createOrUpdateFileContents({
-        ...this.settings.info,
+        ...this.repo.path,
         ...document.toUploadable(), 
         message: document.toCommitMessage()
       }))
@@ -60,7 +61,7 @@ export default {
   
   async exists() {
     try {
-      await this.rest.repos.get(this.settings.info)  
+      await this.rest.repos.get(this.repo.path)  
 
       return true
     } catch (err) {

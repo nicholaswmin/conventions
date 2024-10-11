@@ -1,6 +1,6 @@
 [![tests][testb]][tests] [![ccovt][cocov]](#tests)   
 
-# <<repo>>
+# <<name>>
 
 > <<description>>[^1]  
 
@@ -12,13 +12,13 @@
 ## Install 
 
 ```bash
-npm i @<<owner>>/<<repo>>
+npm i @<<owner>>/<<name>>
 ```
 
 ## Example
 
 ```js
-import { greet } from '@<<owner>>/<<repo>>'
+import { greet } from '@<<owner>>/<<name>>'
 
 const hi = greet()
 

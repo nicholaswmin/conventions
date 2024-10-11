@@ -1,15 +1,16 @@
 import { createOctokit } from './octokit.js'
-import { Settings } from './settings.js'
+import { Repo } from './repo.js'
 
 class Api {
-  constructor(...args) {
+  constructor({ name }) {
     const octokit = createOctokit()
+    
+    this.repo = new Repo({ name })
     this.rest = octokit.rest
-    this.settings = new Settings(...args)
   }
   
   async auth() {
-    this.settings.setOwner(await this.rest.users.getAuthenticated())
+    this.repo.setOwner(await this.rest.users.getAuthenticated())
     
     return this
   }
