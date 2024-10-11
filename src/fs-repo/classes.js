@@ -33,7 +33,7 @@ class Document extends Asset {
 
     tokens.forEach(replaceToken)
     
-    // @TODO Throw if non-replaced tokens still exist
+    // @TODO warn (or throw?) if non-replaced tokens still exist
 
     return this
   }
