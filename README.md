@@ -19,8 +19,8 @@ currently supported conventions
 
 - [ ] Fix hardcoded `auth` token in `octokit.js`
 - [ ] Add tests 
-- [ ] supply `repo` externally
-- [ ] consider supplying "aspects":   
+- [ ] Supply `repo` externally
+- [ ] Consider supplying "aspects":   
   : i.e *"Conventional Commits"* is an aspect,   
     as a self-contained folder with own:    
     - `document fragments`, i.e `CONTRIBUTING.md`,   
