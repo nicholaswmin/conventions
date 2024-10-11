@@ -1,33 +1,59 @@
+import { join } from 'node:path'
+import { readdir } from 'node:fs/promises'
+
 import { createOctokit } from './octokit.js'
 import { Repo } from './repo.js'
 
+const getExtensionFilenames = async dirpath => {
+  const hasExtension = name => ['.js', '.mjs'].some(ext => name.endsWith(ext))
+  const isECMAFile = item => !item.isDirectory() && hasExtension(item.name)
+  const toFilename   = item => item.name
+
+  return (await readdir(dirpath, { withFileTypes: true }))
+    .filter(isECMAFile)
+    .map(toFilename)
+}
+
 class Api {
   constructor({ name }) {
-    const octokit = createOctokit()
-    
+    this.rest = null
     this.repo = new Repo({ name })
-    this.rest = octokit.rest
   }
   
-  async auth() {
-    this.repo.setOwner(await this.rest.users.getAuthenticated())
-    
+  async init({ extpath }) {
+    await this.#loadExtensions(extpath)
+
+    this.rest = createOctokit()?.rest
+
+    // @TODO
+    // - get repo author (not always user) and: 
+    // `repo.setAuthor({ author })`
+
+    // @TODO
+    // - get repo details (if exists) and: 
+    // `repo.setDetails({ descriptions, node_version, ... })`
     return this
   }
   
-  register(api) {
-    Object.defineProperty(this, api.name, { value: {}, enumerable: true })
-    Object.defineProperties(this[api.name], Object.entries(api)
-      .filter(this.#entryIsFunction, this)
-      .reduce(this.#entryToMethodDescriptor.bind(this), {})
-    )
+  async #loadExtensions(extpath) {
+    for (const filename of await getExtensionFilenames(extpath))
+      this.#registerExtension((await import(join(extpath, filename))).default)
+  } 
+  
+  #registerExtension(extension) {
+    const name = extension.name
+    const methods = Object.entries(extension).filter(this.#isMethod)
+    const descriptors = methods.reduce(this.#toMethodDescriptors.bind(this), {})
+
+    Object.defineProperty(this, name, { value: {}, enumerable: true })
+    Object.defineProperties(this[name], descriptors)
   }
   
-  #entryIsFunction([key, value]) {
+  #isMethod([key, value]) {
     return typeof value === 'function'
   }
   
-  #entryToMethodDescriptor(acc, [key, value]) {
+  #toMethodDescriptors(acc, [key, value]) {
     return { ...acc, [key]: { value: value.bind(this), enumerable: true } }
   }
 }

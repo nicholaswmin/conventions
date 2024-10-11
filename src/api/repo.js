@@ -5,39 +5,40 @@
 //    - avoid keeping duplicate copies here that need to be synced. 
 //  - pass required `repo` on `API` init.    
 //    Keep `owner` optional in case repo is about to be created.
-// - this class might be unnecessary and removing it is probably best.
+//  - this class might be unnecessary and removing it is probably best.
 
 class Repo {
   constructor({ name }) {
-    // Github metadata
-    Object.defineProperty(this, 'name', { 
-      value: name.trim(), enumerable: true 
+    Object.defineProperties(this, {
+      name: { value: name, enumerable: true }
     })
-    // redefined strictly on `setOwner`
-    this.owner = 'guest'
-    this.description = null
+  }
 
-    // npm metadata
-    this.node_version = null
-    this.license = null
-  }
-  
-  update(ghSettings, npmSettings) {
-    const settings = { ...ghSettings, ...npmSettings }
-    const defined = function(key) { return typeof this[key] !== 'undefined' }
+  setAuthor({ author })  {
+    Object.defineProperties(this, {
+      author: { value: author, enumerable: true }
+    })
 
-    Object.keys(this).filter(defined, settings).forEach(key => {
-      this[key] = settings[key]
-    })
+    return this
   }
   
-  setOwner({ data }) {
-    delete this.owner
-    Object.defineProperty(this, 'owner', { 
-      value: data.trim(), enumerable: true 
+  // after auth:
+  //  - if repo exists, fill the rest
+  //  - else wait until repo creation
+  setDetails({ description, node_version, license } = {}) {
+    Object.defineProperties(this, {
+      description:  { value: description,  enumerable: true },
+      node_version: { value: node_version, enumerable: true },
+      license:      { value: license,      enumerable: true }
     })
+    
+    return this
   }
   
+  get owner() {
+    return this.author || 'guest'
+  }
+
   get tokens() { 
     const toTokens = ([ key, value ]) => ({
       value, key: `<<${key.split('_').join('-')}>>`

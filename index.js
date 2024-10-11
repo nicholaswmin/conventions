@@ -4,12 +4,12 @@ import { getDocument, getDocuments, getRulesets } from './src/fs-repo/index.js'
 
 const api = await createApi(
   { extpath: join(import.meta.dirname, 'apis')  },
-  { name: 'fsm', description: 'A state machine' }
+  { name: 'fsm' }
 )
 
-const result = await api.repos.create(
+const created = await api.repos.create(
   { description: 'A state machine' }, 
-  { node_version: '22.9', license: 'MIT' }
+  { node_version: ['22.9'], license: 'MIT' }
 )
 
 const assets = {
@@ -20,12 +20,12 @@ const assets = {
     ...await getDocuments('.github/workflows'),
   ].map(doc => doc.replaceTokens(api.repo.tokens))
 }
-console.log(assets)
+
 const results = {
-  create: result,
-  rulesets: await api.repos.addRulesets(assets.rulesets),
-  documents: await api.repos.addDocuments(assets.documents),
-  CQDefault: await api.codeScanning.turnOnDefaultSetup(repo)
+  created: created,
+  ruleset: await api.repos.addRulesets(assets.rulesets),
+  uploads: await api.repos.addDocuments(assets.documents),
+  cq_scan: await api.codeScanning.turnOnDefaultSetup(repo)
 }
 
 console.log(results)
