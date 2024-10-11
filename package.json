@@ -1,0 +1,31 @@
+{
+  "name": "gh-good-repo",
+  "version": "0.1.0",
+  "description": "repository configurator",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholaswmin/gh-signed.git"
+  },
+  "keywords": [
+    "github-cli",
+    "repository",
+    "octokit",
+    "best-practises",
+    "security"
+  ],
+  "author": "@nicholaswmin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicholaswmin/gh-good-repo/issues"
+  },
+  "homepage": "https://github.com/nicholaswmin/gh-good-repo#readme",
+  "dependencies": {
+    "@octokit/plugin-retry": "^7.1.2",
+    "@octokit/rest": "^21.0.2"
+  }
+}
