@@ -1,10 +1,6 @@
 class Document {
-  static localDirpath = 'repo'
-  static get localDirname() {
-    return Document.localDirpath.split('/').at(-1)
-  }
-
-  constructor({ dirpath, filename, contents }) {
+  constructor({ baseDirpath, dirpath, filename, contents }) {
+    this.baseDirpath = baseDirpath
     this.dirpath = dirpath
     this.contents = contents
     this.filename = filename
