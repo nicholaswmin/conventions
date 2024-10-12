@@ -3,7 +3,6 @@ import { readdir, readFile } from 'node:fs/promises'
 import { Document } from '../classes/document.js'
 import { Ruleset } from '../classes/ruleset.js'
 
-const BASE_DIRPATH = join(process.cwd(), 'repo')
 
 const getFilenamesInDir = async dirpath => {
   const listed = await readdir(dirpath, {  withFileTypes: true })
@@ -25,32 +24,38 @@ const getFilesInDir = async dirpath => {
   return files
 }
 
-const getRulesets = async () => {
-  const files = await getFilesInDir(join(BASE_DIRPATH, './rulesets'))
+class FsRepo {
+  constructor({ repoDir }) {
+    this.repoDir = repoDir
+  }
   
-  return files.map(file => new Ruleset(file))
-}
-
-const getDirDocuments = async dirpath => {
-  const files = await getFilesInDir(join(BASE_DIRPATH, dirpath))
-
-  return files.map(file => new Document({ 
-    baseDirpath: BASE_DIRPATH, 
-    dirpath, 
-    ...file 
-  }))
-}
-
-const getDocument = async path => {
-  const contents = await readFile(join(BASE_DIRPATH, path), 'utf8')
-  const pathparts = path.split('/')
+  async getRulesets() {
+    const files = await getFilesInDir(join(this.repoDir, './rulesets'))
+    
+    return files.map(file => new Ruleset(file))
+  }
   
-  return new Document({ 
-    baseDirpath: BASE_DIRPATH,
-    dirpath: pathparts.slice(0, pathparts.length - 1).join('/'), 
-    filename: pathparts.at(-1), 
-    contents 
-  })
+  async getDirDocuments (dirpath) {
+    const files = await getFilesInDir(join(this.repoDir, dirpath))
+  
+    return files.map(file => new Document({ 
+      baseDirpath: this.repoDir, 
+      dirpath, 
+      ...file 
+    }))
+  }
+  
+  async getDocument(path) {
+    const contents = await readFile(join(this.repoDir, path), 'utf8')
+    const pathparts = path.split('/')
+    
+    return new Document({ 
+      baseDirpath: this.repoDir,
+      dirpath: pathparts.slice(0, pathparts.length - 1).join('/'), 
+      filename: pathparts.at(-1), 
+      contents 
+    })
+  }
 }
 
-export { getDocument, getDirDocuments, getRulesets }
+export { FsRepo }

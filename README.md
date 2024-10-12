@@ -8,7 +8,7 @@ Requires:
 - an `extensions` folder with API extensions
 - a `repo` folder with repo assets
 
-both within the *current working* directory.
+both within the *root* directory.
 
 Run: `node --run new`
 

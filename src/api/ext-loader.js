@@ -1,15 +1,15 @@
 import { join } from 'node:path'
 import { readdir } from 'node:fs/promises'
 
-const getExtensionFiles = async dirpath => {
+const getExtensionFiles = async extDir => {
   const hasExtension = name => ['.js', '.mjs'].some(ext => name.endsWith(ext))
   const isECMAFile = item => !item.isDirectory() && hasExtension(item.name)
   
-  return (await readdir(dirpath, { withFileTypes: true })).filter(isECMAFile)
+  return (await readdir(extDir, { withFileTypes: true })).filter(isECMAFile)
 }
 
-const loadDirModules = async extpath => {
-  const files = await getExtensionFiles(extpath)
+const loadDirModules = async extDir => {
+  const files = await getExtensionFiles(extDir)
   const importFile = file => import(join(file.parentPath, file.name))
   const toDefault = mod => mod.default
 

@@ -1,10 +1,9 @@
-import { join } from 'node:path'
 import { Api } from './api.js'
 
-const createApi = async ({ token }, { name, author }) => {
+const createApi = async ({ token, extDir }, { name, author }) => {
   const api = new Api({ token }, { name, author })
 
-  return api.init({ extDirname: join(process.cwd(), 'extensions') })
+  return api.init({ extDir })
 }
 
 export { createApi }
