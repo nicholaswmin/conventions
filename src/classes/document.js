@@ -1,7 +1,7 @@
-class Asset {
+class Document {
   static localDirpath = 'repo'
   static get localDirname() {
-    return Asset.localDirpath.split('/').at(-1)
+    return Document.localDirpath.split('/').at(-1)
   }
 
   constructor({ dirpath, filename, contents }) {
@@ -11,20 +11,14 @@ class Asset {
   }
   
   toUploadable() {
-    return this
-  }
-  
-  toCommitMessage() {
-    return `docs: add ${this.filename}`
-  }
-}
-
-class Document extends Asset {
-  toUploadable() {
     return {
       path: this.#toRepositoryDirpath(this.dirpath),
       contents: Buffer.from(this.contents).toString('base64')
     }
+  }
+  
+  toCommitMessage() {
+    return `docs: add ${this.filename}`
   }
   
   replaceTokens(tokens = []) {
@@ -40,11 +34,11 @@ class Document extends Asset {
   
   #toRepositoryDirpath() {
     const parts = this.dirpath.split('/')
-    const index = parts.indexOf(Asset.localDirname)
+    const index = parts.indexOf(Document.localDirname)
     const rpath = `${parts.slice(index + 1).join('/')}/${this.filename}`
     
     return rpath.startsWith('/') ? rpath.slice(1) : rpath
   }
 }
 
-export { Asset, Document }
+export { Document }

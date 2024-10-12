@@ -1,9 +1,9 @@
 import { join } from 'node:path'
 import { readdir, readFile } from 'node:fs/promises'
-import { Asset, Document } from '../classes/document.js'
+import { Document } from '../classes/document.js'
 import { Ruleset } from '../classes/ruleset.js'
 
-Asset.localDirpath = join(import.meta.dirname, '../../repo')
+Document.localDirpath = join(import.meta.dirname, '../../repo')
 
 const getFilenamesInDir = async dirpath => {
   const listed = await readdir(dirpath, {  withFileTypes: true })
@@ -27,13 +27,13 @@ const getFilesInDir = async dirpath => {
 }
 
 const getRulesets = async () => {
-  const files = await getFilesInDir(join(Asset.localDirpath, './rulesets'))
+  const files = await getFilesInDir(join(Document.localDirpath, './rulesets'))
   
   return files.map(file => new Ruleset(file))
 }
 
 const getDocument = async path => {
-  const contents = await readFile(join(Asset.localDirpath, path), 'utf8')
+  const contents = await readFile(join(Document.localDirpath, path), 'utf8')
   const pathparts = path.split('/')
 
   return new Document({ 
@@ -44,7 +44,7 @@ const getDocument = async path => {
 }
 
 const getDocuments = async dirpath => {
-  const files = await getFilesInDir(join(Asset.localDirpath, dirpath))
+  const files = await getFilesInDir(join(Document.localDirpath, dirpath))
 
   return files.map(file => new Document({ dirpath, ...file }))
 }
