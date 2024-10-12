@@ -29,11 +29,7 @@ class Document {
   }
   
   #toRepositoryDirpath() {
-    const parts = this.dirpath.split('/')
-    const index = parts.indexOf(Document.localDirname)
-    const rpath = `${parts.slice(index + 1).join('/')}/${this.filename}`
-    
-    return rpath.startsWith('/') ? rpath.slice(1) : rpath
+    return join(this.dirpath.replaceAll(this.baseDirpath, ''), this.filename)
   }
 }
 

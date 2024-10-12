@@ -6,6 +6,13 @@ import {
   getRulesets 
 } from './src/fs-repo/index.js'
 
+
+console.log([
+  await getDocument('README.md'),
+...await getDocuments('.github'),
+...await getDocuments('.github/workflows'),
+].map(doc => doc.toUploadable()))
+
 const api = await createApi({ name: 'fsm' })
 
 const results = {
