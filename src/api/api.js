@@ -4,27 +4,22 @@ import { readdir } from 'node:fs/promises'
 import { createOctokit } from './octokit.js'
 import { Repo } from '../classes/repo.js'
 
-const getExtensionFilenames = async dirpath => {
+const getExtensionFiles = async dirpath => {
   const hasExtension = name => ['.js', '.mjs'].some(ext => name.endsWith(ext))
   const isECMAFile = item => !item.isDirectory() && hasExtension(item.name)
-  const toFilename   = item => item.name
-
+  
   return (await readdir(dirpath, { withFileTypes: true }))
     .filter(isECMAFile)
-    .map(toFilename)
 }
 
 class Api {
-  // path to extensions folder
-  static extpath = join(process.cwd(), './extensions')
-
   constructor({ name }) {
     this.rest = null
     this.repo = new Repo({ name })
   }
   
-  async init() {
-    await this.#loadExtensions(Api.extpath)
+  async init({ extDirname }) {
+    await this.#loadExtensions(extDirname)
 
     this.rest = createOctokit()?.rest
 
@@ -39,8 +34,10 @@ class Api {
   }
   
   async #loadExtensions(extpath) {
-    for (const filename of await getExtensionFilenames(extpath))
-      this.#registerExtension((await import(join(extpath, filename))).default)
+    for (const file of await getExtensionFiles(extpath))
+      this.#registerExtension(
+        (await import(join(file.parentPath, file.name))).default
+      )
   } 
   
   #registerExtension(extension) {
