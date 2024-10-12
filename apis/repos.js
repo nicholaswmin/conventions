@@ -24,12 +24,14 @@ export default {
         delete_branch_on_merge: true
       })
 
-    const vReporting = await this.rest.repos
-      .enablePrivateVulnerabilityReporting(this.repo.path)
-
     this.repo.update(...args)
 
-    return { deletion, creation, vReporting }
+    return { deletion, creation }
+  },
+  
+  async enablePrivateVulnerabilityReporting() {
+    return await this.rest.repos
+      .enablePrivateVulnerabilityReporting(this.repo.path)
   },
   
   async addRulesets(rulesets) {
