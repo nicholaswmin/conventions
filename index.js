@@ -29,8 +29,7 @@ try {
     v_report: await api.repos.enablePrivateVulnerabilityReporting()
   } 
   
-  
   console.log(results)
 } catch (err) {
-  console.error(err.cause)
+  throw err.cause || err
 }

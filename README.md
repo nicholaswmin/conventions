@@ -30,8 +30,10 @@ Run: `node --run new`
 ## todo
 
 - [ ] Fix hardcoded `auth` token in `octokit.js`
-- [ ] Add tests 
-- [ ] Supply `repo` externally
+- [ ] Add tests
+- [ ] Reimplement `octokit` retry
+- [x] Supply `repo` externally
+  - fixed: uses `cwd` now.
 - [ ] Consider `Aspects`, grouped together forming an `Opinion`:   
   : i.e *"Conventional Commits"* is an `Aspect`,   
     as a self-contained folder with own:    
