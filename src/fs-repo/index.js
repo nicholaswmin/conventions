@@ -15,9 +15,8 @@ const getFilenamesInDir = async dirpath => {
 
 const getFilesInDir = async dirpath => {
   const files = []
-  const filenames = await getFilenamesInDir(dirpath)
 
-  for (const filename of filenames)
+  for (const filename of await getFilenamesInDir(dirpath))
     files.push({ 
       filename,
       contents: await readFile(join(dirpath, filename), 'utf8')
