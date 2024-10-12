@@ -20,12 +20,16 @@ Run: `node --run new`
 - [ ] Fix hardcoded `auth` token in `octokit.js`
 - [ ] Add tests 
 - [ ] Supply `repo` externally
-- [ ] Consider supplying "aspects":   
-  : i.e *"Conventional Commits"* is an aspect,   
+- [ ] Consider `Aspects`, grouped together forming an `Opinion`:   
+  : i.e *"Conventional Commits"* is an `Aspect`,   
     as a self-contained folder with own:    
-    - `document fragments`, i.e `CONTRIBUTING.md`,   
-      merged with main `CONTTRIBUTING.md`
+    - `workflows`
+    - `repo-settings`
     - `rulesets` 
+    - `document fragments`:   
+      i.e `CONTRIBUTING.md` is a contruting section that gets   
+      merged with other `CONTTRIBUTING.md` fragments from other Aspects.   
+      Then all are grouped under a main `CONTRIBUTING.md`  
     - ... etc
 
 ## Authors
