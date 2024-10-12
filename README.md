@@ -3,7 +3,7 @@
 > A repository configurator  
 > WIP
 
-Run: `node --run new`
+Run: `node --run create`
 
 - Creates a repo  
 - Sets configuation (code scanning, allow rebase etc)  
