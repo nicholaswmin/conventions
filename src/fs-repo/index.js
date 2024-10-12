@@ -1,6 +1,7 @@
 import { join } from 'node:path'
 import { readdir, readFile } from 'node:fs/promises'
-import { Asset, Document, Ruleset } from './classes.js'
+import { Asset, Document } from '../api/classes/document.js'
+import { Ruleset } from '../api/classes/ruleset.js'
 
 Asset.localDirpath = join(import.meta.dirname, '../../repo')
 
