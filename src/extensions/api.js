@@ -15,13 +15,16 @@ const getExtensionFilenames = async dirpath => {
 }
 
 class Api {
+  // path to extensions folder
+  static extpath = join(process.cwd(), './extensions')
+
   constructor({ name }) {
     this.rest = null
     this.repo = new Repo({ name })
   }
   
-  async init({ extpath }) {
-    await this.#loadExtensions(extpath)
+  async init() {
+    await this.#loadExtensions(Api.extpath)
 
     this.rest = createOctokit()?.rest
 

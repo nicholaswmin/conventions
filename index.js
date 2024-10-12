@@ -1,17 +1,10 @@
 import { join } from 'node:path'
 import { createApi } from './src/api/index.js'
 import { 
+  getRulesets,
   getDocument, 
-  getDocuments, 
-  getRulesets 
+  getDirDocuments
 } from './src/fs-repo/index.js'
-
-
-console.log([
-  await getDocument('README.md'),
-...await getDocuments('.github'),
-...await getDocuments('.github/workflows'),
-].map(doc => doc.toUploadable()))
 
 const api = await createApi({ name: 'fsm' })
 
@@ -22,8 +15,8 @@ const results = {
   ),
   documents: await api.repos.addDocuments([
     await getDocument('README.md'),
-    ...await getDocuments('.github'),
-    ...await getDocuments('.github/workflows'),
+    ...await getDirDocuments('.github'),
+    ...await getDirDocuments('.github/workflows'),
   ].map(doc => doc.replaceTokens(api.repo.tokens))),
   rulesets: await api.repos.addRulesets(await getRulesets()),
   cq_scans: await api.codeScanning.turnOnDefaultSetup(repo),

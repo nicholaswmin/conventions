@@ -1,3 +1,5 @@
+import { join } from 'node:path'
+
 class Document {
   constructor({ baseDirpath, dirpath, filename, contents }) {
     this.baseDirpath = baseDirpath
