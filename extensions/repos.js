@@ -1,6 +1,8 @@
 export default {
   name: 'repos',
   async create(...args) {
+    this.repo.setDetails(...args)
+
     const deletion = await this.repos.exists() 
       ? await this.rest.delete(this.repo.path)
       : false
@@ -17,14 +19,12 @@ export default {
         has_discussions: false,
 
         gitignore_template: 'Node',
-        license_template: 'MIT',
+        license_template: this.repo.license,
         
         allow_squash_merge: true,
         allow_rebase_merge: true,
         delete_branch_on_merge: true
       })
-
-    this.repo.update(...args)
 
     return { deletion, creation }
   },

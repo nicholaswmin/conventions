@@ -8,15 +8,27 @@
 //  - this class might be unnecessary and removing it is probably best.
 
 class Repo {
-  constructor({ name }) {
+  constructor({ name, author = null }) {
     Object.defineProperties(this, {
-      name: { value: name, enumerable: true }
+      name: { value: name.trim(), enumerable: true },
+      author: { 
+        value: author.replace('@', ''), 
+        configurable: true,
+        writable: true,
+        enumerable: true
+      }
     })
+    
+    console.log(this)
   }
 
-  setAuthor({ author })  {
+  setAuthor({ user, author })  {
+    if (typeof this.author !== 'undefined')
+      delete this.author
+
     Object.defineProperties(this, {
-      author: { value: author, enumerable: true }
+      user: { value: user, enumerable: true },
+      author: { value: author || user, enumerable: true }
     })
 
     return this

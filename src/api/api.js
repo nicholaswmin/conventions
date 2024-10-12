@@ -1,7 +1,6 @@
 import { join } from 'node:path'
 import { readdir } from 'node:fs/promises'
-
-import { createOctokit } from './octokit.js'
+import { Octokit } from '@octokit/rest'
 import { Repo } from '../classes/repo.js'
 
 const getExtensionFiles = async dirpath => {
@@ -13,15 +12,13 @@ const getExtensionFiles = async dirpath => {
 }
 
 class Api {
-  constructor({ name }) {
-    this.rest = null
-    this.repo = new Repo({ name })
+  constructor({ token }, { name, author }) {
+    this.rest = (new Octokit({ auth: token })).rest
+    this.repo = new Repo({ name, author })
   }
   
   async init({ extDirname }) {
     await this.#loadExtensions(extDirname)
-
-    this.rest = createOctokit()?.rest
 
     // @TODO
     // - get repo author (not always user) and: 
