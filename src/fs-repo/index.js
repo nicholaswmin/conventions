@@ -31,6 +31,12 @@ const getRulesets = async () => {
   return files.map(file => new Ruleset(file))
 }
 
+const getDocuments = async dirpath => {
+  const files = await getFilesInDir(join(Document.localDirpath, dirpath))
+
+  return files.map(file => new Document({ dirpath, ...file }))
+}
+
 const getDocument = async path => {
   const contents = await readFile(join(Document.localDirpath, path), 'utf8')
   const pathparts = path.split('/')
@@ -40,12 +46,6 @@ const getDocument = async path => {
     filename: pathparts.at(-1), 
     contents 
   })
-}
-
-const getDocuments = async dirpath => {
-  const files = await getFilesInDir(join(Document.localDirpath, dirpath))
-
-  return files.map(file => new Document({ dirpath, ...file }))
 }
 
 export { getDocument, getDocuments, getRulesets }
