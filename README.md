@@ -3,13 +3,6 @@
 > A repository configurator  
 > WIP
 
-Requires:
-
-- an `extensions` folder with API extensions
-- a `repo` folder with repo assets
-
-both within the *root* directory.
-
 Run: `node --run new`
 
 - Creates a repo  
@@ -19,13 +12,14 @@ Run: `node --run new`
   - workflows (`test`, `publish` etc ...)
   - rulesets
   
-
 ## notes
 
-- `repo` documents can be tokenised   
-  i.e: see "Author" section in `repo/README.md` for example.  
-- `repo` must keep same file directory structure as actual repo.
-- see rulesets in `repo/rulesets` for currently supported conventions  
+- Github API extensions are in: `./extensions`
+- Repo assets are in: `./repo`
+  - `Documents` can be tokenised   
+    i.e: see "Author" section in `repo/README.md` for example.  
+  - Keep same file directory structure as actual repo.
+- Check out rulesets in `repo/rulesets` for currently supported conventions  
 
 ## todo
 
