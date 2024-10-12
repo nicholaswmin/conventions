@@ -3,7 +3,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import { Document } from '../classes/document.js'
 import { Ruleset } from '../classes/ruleset.js'
 
-Document.localDirpath = join(import.meta.dirname, '../../repo')
+Document.localDirpath = join(process.cwd(), './repo')
 
 const getFilenamesInDir = async dirpath => {
   const listed = await readdir(dirpath, {  withFileTypes: true })
@@ -40,7 +40,7 @@ const getDocuments = async dirpath => {
 const getDocument = async path => {
   const contents = await readFile(join(Document.localDirpath, path), 'utf8')
   const pathparts = path.split('/')
-
+  
   return new Document({ 
     dirpath: pathparts.slice(0, pathparts.length - 1).join('/'), 
     filename: pathparts.at(-1), 

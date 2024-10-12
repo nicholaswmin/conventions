@@ -6,10 +6,7 @@ import {
   getRulesets 
 } from './src/fs-repo/index.js'
 
-const api = await createApi(
-  { extpath: join(import.meta.dirname, 'apis')  },
-  { name: 'fsm' }
-)
+const api = await createApi({ name: 'fsm' })
 
 const results = {
   new_repo: await api.repos.create(

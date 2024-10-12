@@ -3,6 +3,13 @@
 > A repository configurator  
 > WIP
 
+Requires:
+
+- an `extensions` folder with API extensions
+- a `repo` folder with repo assets
+
+both within the *current working* directory.
+
 Run: `node --run new`
 
 - Creates a repo  
@@ -12,8 +19,13 @@ Run: `node --run new`
   - workflows (`test`, `publish` etc ...)
   - rulesets
   
-*see rulesets in `repo/rulesets` for currently supported conventions  
-*api abstractions over `octokit` are in `./apis`
+
+## notes
+
+- `repo` documents can be tokenised   
+  i.e: see "Author" section in `repo/README.md` for example.  
+- `repo` must keep same file directory structure as actual repo.
+- see rulesets in `repo/rulesets` for currently supported conventions  
 
 ## todo
 
@@ -27,7 +39,7 @@ Run: `node --run new`
     - `repo-settings`
     - `rulesets` 
     - `document fragments`:   
-      i.e `CONTRIBUTING.md` is a contruting section that gets   
+      i.e `CONTRIBUTING.md` is a markdown section that gets   
       merged with other `CONTTRIBUTING.md` fragments from other Aspects.   
       Then all are grouped under a main `CONTRIBUTING.md`  
     - ... etc
