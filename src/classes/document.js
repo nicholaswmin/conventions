@@ -1,17 +1,21 @@
 import { join } from 'node:path'
 
 class Document {
-  constructor({ baseDirpath, dirpath, filename, contents }) {
-    this.baseDirpath = baseDirpath
-    this.dirpath = dirpath
-    this.contents = contents
-    this.filename = filename
+  constructor({ basepath, dirpath, filename, content }) {
+    this.replaced = null
+
+    Object.defineProperties(this, {
+      basepath: { value: basepath, enumerable: true },
+      dirpath:  { value: dirpath,  enumerable: true },
+      filename: { value: filename, enumerable: true },
+      content:  { value: content,  enumerable: true, writable: true }
+    })
   }
   
   toUploadable() {
     return {
       path: this.#toRepositoryDirpath(this.dirpath),
-      contents: Buffer.from(this.contents).toString('base64')
+      content: Buffer.from(this.content).toString('base64')
     }
   }
   
@@ -20,8 +24,10 @@ class Document {
   }
   
   replaceTokens(tokens = []) {
-    const replaceToken = token =>
-      this.contents = this.contents.replaceAll(token.key, token.value)
+    console.log(tokens)
+    
+    const replaceToken = token => 
+      this.content = this.content.replaceAll(token.key, token.value)
 
     tokens.forEach(replaceToken)
     
@@ -31,7 +37,7 @@ class Document {
   }
   
   #toRepositoryDirpath() {
-    return join(this.dirpath.replaceAll(this.baseDirpath, ''), this.filename)
+    return join(this.dirpath.replaceAll(this.basepath, ''), this.filename)
   }
 }
 

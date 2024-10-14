@@ -12,13 +12,13 @@
 ## Install 
 
 ```bash
-npm i @<<owner>>/<<name>>
+npm i @<<author>>/<<name>>
 ```
 
 ## Example
 
 ```js
-import { greet } from '@<<owner>>/<<name>>'
+import { greet } from '@<<author>>/<<name>>'
 
 const hi = greet()
 
@@ -53,7 +53,7 @@ Read the [Contributions Guide][cnt-guide].
 
 ## Authors
 
-[@<<owner>>][owner-url]  
+[@<<author>>][author-url]  
 
 Licensed under: [<<license>>][license]  
 
@@ -67,5 +67,5 @@ Licensed under: [<<license>>][license]
 [ccovt]: <<repo-url>>/blob/main/package.json
 
 [cnt-guide]: ./.github/CONTRIBUTING.md
-[owner-url]: <<owner-url>>
+[author-url]: <<author-url>>
 [license]: ./LICENSE

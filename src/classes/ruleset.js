@@ -1,10 +1,10 @@
 class Ruleset {
-  constructor({ contents }) {
-    Object.assign(this, JSON.parse(contents))
+  constructor({ content }) {
+    Object.assign(this, JSON.parse(content))
   }
   
   toJSON() {
-    return { contents: this }
+    return { content: this }
   }
 }
 

@@ -3,6 +3,9 @@
 > A repository configurator  
 > WIP
 
+## Usage
+
+## 
 Run: `node --run create`
 
 - Creates a repo  

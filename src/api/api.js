@@ -1,10 +1,9 @@
-import { Octokit } from '@octokit/rest'
 import { loadDirModules } from './ext-loader.js'
 import { Repo } from '../classes/repo.js'
 
 class Api {
-  constructor({ token }, { name, author }) {
-    this.rest = (new Octokit({ auth: token })).rest
+  constructor(api, { name, author }) {
+    this.api = api
     this.repo = new Repo({ name, author })
   }
   

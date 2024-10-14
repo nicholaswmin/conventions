@@ -4,38 +4,36 @@
 > `should`, `should not`, `recommended`, `may`, and `optional` in this   
 > document are to be interpreted as described in [RFC 2119][rfc-2119]. 
 
-- The runtime, source code & Github defaults are the *only* 1st-class citizens.    
-  Anything else, including process & conventions are undesirable dependencies.  
-- Dependencies *should* be lightweight, familiar to use & well-defined.
-- A robust & well-defined test suite is more valuable than the code.
-- Conciseness over verbosity. You don't need it.
+- [Keep it simple][kiss]. Anything else, [you don't need it][yagni].  
+- The runtime, source code & Github defaults are the *only* 1st-class citizens.       
+  Any 3rd-party modules, services & conventions are *undesirable* dependencies.
+- A robust & well-defined test suite is more valuable than the source code.
 
 ## Publishing
 
-> created as [Github Release][gh-rlese] & follow [SemVer][semver]:
+> *must* be created as a [Github Release][gh-relea] & follow [Semver][semver]:
 
 > example: publishing a new release:
 
 ```bash
-gh release create v1.7.1
+gh release create 1.7.1
 ```
+
+> note: **must not** include a `v` prefix 
 
 List current releases:
 
 ```bash
 gh release list
-```
-
-> note: versions must use format: `vX.X.X`.
-  
+```  
 
 ## Branching
 
 > follow [Github Flow][ghb-flow]:
 
-1. Create a branch   
+1. Create a branch.  
    Use a concise name, i.e: `increase-test-timeout`
-2. Push code changes to the branch  
+2. Push code changes to the branch.  
    Commit messages *must* follow [conventions](#commit-messages)
 4. Create a pull request
 5. Address review comments
@@ -46,7 +44,7 @@ gh release list
 
 ## Commit messages
 
-> follow [Conventional Commits v1][cc-about], requiring a format:
+> follow [Conventional Commits][cc-about], requiring a format:
 
 ```bash
 <type> <description>
@@ -58,22 +56,30 @@ gh release list
 examples:
 
 ```bash
-# good:
+# Good:
 git commit -m"fix: array parsing issue with multiple spaces"
 
-# bad: "Feat." is invalid. Use "feat:" or "fix:"
-# bad: no space between keywords.
-git commit -m"Feat.users can reset their password"
+# Bad:
+# - "feat." is invalid. Use "feat:" or "fix:"
+git commit -m"feat. users can reset their password"
+
+# Bad:
+# - missing space between <type> & <description>.
+git commit -m"fix:array parsing..."
 ```
 
-> **note:** breaking changes *must* consult the [specification][cc-specs],  
-> which also includes additional, more specific formats.
+> **note:** breaking changes *must* consult the [specification][cc-specs], which 
+> also includes more specific formats.
 
-## authors
+## Authors
 
-> authors: [@<<owner>>][owner-url]
+> authors: [@<<author>>][author-url]
 
 [semver]: https://semver.org/
+[pola]: https://en.wikipedia.org/wiki/Principle_of_least_astonishment
+[kiss]: https://en.wikipedia.org/wiki/KISS_principle
+[yagni]: https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it#
+
 [ghb-flow]: https://docs.github.com/en/get-started/using-github/github-flow
 [cc-about]: https://www.conventionalcommits.org/en/v1.0.0/#summary
 [cc-specs]: https://www.conventionalcommits.org/en/v1.0.0/#specification
@@ -81,6 +87,6 @@ git commit -m"Feat.users can reset their password"
 
 [ps-build]: https://docs.npmjs.com/generating-provenance-statements
 [npm-site]: https://www.npmjs.com/package/@nicholaswmin/fsm?activeTab=versions
-[gh-rlese]: https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
+[gh-relea]: https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
 
-[owner-url]: <<owner-url>>
+[author-url]: <<author-url>>

@@ -4,14 +4,14 @@ export default {
     this.repo.setDetails(...args)
 
     const deletion = await this.repos.exists() 
-      ? await this.rest.delete(this.repo.path)
+      ? await this.api.repos.delete(this.repo.path)
       : false
 
-    const creation = await this.rest.repos
+    const creation = await this.api.repos
       .createForAuthenticatedUser({ 
         name: this.repo.name,
         description: this.repo.description,
-        homepage: this.repo.repo_url,
+        homepage: this.repo.homepage_url,
 
         has_issues: true,
         has_projects: false,
@@ -30,7 +30,7 @@ export default {
   },
   
   async enablePrivateVulnerabilityReporting() {
-    return await this.rest.repos
+    return await this.api.repos
       .enablePrivateVulnerabilityReporting(this.repo.path)
   },
   
@@ -38,8 +38,8 @@ export default {
     const results = []
 
     for (const ruleset of rulesets) {
-      results.push(await this.rest.repos.createRepoRuleset({ 
-        ...this.repo, 
+      results.push(await this.api.repos.createRepoRuleset({ 
+        ...this.repo.path, 
         ...ruleset
       }))
     } 
@@ -51,7 +51,7 @@ export default {
     const results = []
 
     for (const document of documents) {
-      results.push(await this.rest.repos.createOrUpdateFileContents({
+      results.push(await this.api.repos.createOrUpdateFileContents({
         ...this.repo.path,
         ...document.toUploadable(), 
         message: document.toCommitMessage()
@@ -63,7 +63,7 @@ export default {
   
   async exists() {
     try {
-      await this.rest.repos.get(this.repo.path)  
+      await this.api.repos.get(this.repo.path)  
 
       return true
     } catch (err) {

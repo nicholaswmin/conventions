@@ -16,10 +16,26 @@ class Repo {
         configurable: true,
         writable: true,
         enumerable: true
+      },
+      author_url: { 
+        enumerable: true,
+        get() {
+          return `https://github.com/${this.author}`
+        }
+      },
+      repo_url: {
+        enumerable: true,
+        get() {
+          return `${this.author_url}/${this.name}`
+        }
+      },
+      homepage_url: {
+        enumerable: true,
+        get() {
+          return `https://${this.author}.github.io/${this.name}`
+        }
       }
     })
-    
-    console.log(this)
   }
 
   setAuthor({ user, author })  {
@@ -47,16 +63,18 @@ class Repo {
     return this
   }
   
-  get owner() {
-    return this.author || 'guest'
+  get path() {
+    return { repo: this.name, owner: this.author }
   }
 
   get tokens() { 
-    const toTokens = ([ key, value ]) => ({
-      value, key: `<<${key.split('_').join('-')}>>`
+    console.log(Object.getOwnPropertyDescriptors(this))
+    const toTokens = key => ({ 
+      value: this[key], 
+      key: `<<${key.split('_').join('-')}>>` 
     })
 
-    return Object.entries(this).map(toTokens)
+    return Object.keys(Object.getOwnPropertyDescriptors(this)).map(toTokens)
   }
 }
 

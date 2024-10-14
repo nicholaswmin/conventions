@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nicholaswmin/gh-signed.git"
+    "url": "git+https://github.com/nicholaswmin/gh-good-repo.git"
   },
   "keywords": [
     "github-cli",

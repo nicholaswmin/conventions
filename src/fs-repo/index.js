@@ -18,7 +18,7 @@ const getFilesInDir = async dirpath => {
   for (const filename of await getFilenamesInDir(dirpath))
     files.push({ 
       filename,
-      contents: await readFile(join(dirpath, filename), 'utf8')
+      content: await readFile(join(dirpath, filename), 'utf8')
     })
   
   return files
@@ -39,21 +39,20 @@ class FsRepo {
     const files = await getFilesInDir(join(this.repoDir, dirpath))
   
     return files.map(file => new Document({ 
-      baseDirpath: this.repoDir, 
+      basepath: this.repoDir, 
       dirpath, 
       ...file 
     }))
   }
   
   async getDocument(path) {
-    const contents = await readFile(join(this.repoDir, path), 'utf8')
     const pathparts = path.split('/')
-    
+
     return new Document({ 
-      baseDirpath: this.repoDir,
-      dirpath: pathparts.slice(0, pathparts.length - 1).join('/'), 
+      basepath: this.repoDir,
+      dirpath:  pathparts.slice(0, pathparts.length - 1).join('/'), 
       filename: pathparts.at(-1), 
-      contents 
+      content:  await readFile(join(this.repoDir, path), 'utf8')
     })
   }
 }

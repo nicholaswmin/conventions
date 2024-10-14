@@ -56,4 +56,4 @@ The authors will:
 
 [coql-merge]: https://docs.github.com/en/code-security/code-scanning/managing-your-code-scanning-configuration/set-code-scanning-merge-protection
 [actionlint]: https://github.com/rhysd/actionlint
-[owner-url]: <<owner-url>>
+[author-url]: <<author-url>>

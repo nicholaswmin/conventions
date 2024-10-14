@@ -1,9 +1,7 @@
 import { Api } from './api.js'
 
-const createApi = async ({ token, extDir }, { name, author }) => {
-  const api = new Api({ token }, { name, author })
-
-  return api.init({ extDir })
+const createApi = async (api, { extDir }, { name, author }) => {
+  return (new Api(api, { name, author })).init({ extDir })
 }
 
 export { createApi }
