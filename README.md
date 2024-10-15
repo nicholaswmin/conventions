@@ -1,6 +1,6 @@
 # conventions
 
-> A repository configurator   
+> Create repositories with pluggable `conventions`
 > WIP
 
 * [Overview](#overview)
@@ -14,8 +14,27 @@
 
 ## Overview
 
-A `Convention` is a self-contained folder that describes a 
+A CLI app that uses the [Github API][gapi] to create repositories.
+
+The repositories are described as a list of pluggable, 
+user-definable `conventions`.
+
+A `convention` is a self-contained folder that describes a 
 [coding convention][convention], e.g [conventional-commits][ccomits].
+
+Each `convention` self-contains all the necessary:
+
+- [documents]
+  - [README.md][readme]
+  - [guides][guides]
+  - [policies][secpolic]
+  - etc
+- [rulesets][rulesets]
+- [workflows][actions]
+- configuration files 
+- etc. 
+
+to add that convention to the repository.
 
 > example: a `base` plus 4 different `conventions`:
 
@@ -48,7 +67,7 @@ hence it's always required:
 
 ### A `convention`
 
-A convention is a partial repository structure with all the necessary  
+A convention is a *partial* repository structure with all the necessary  
 documents and files to support the convention:
 
 > example: A [Semver `convention`][semver]:
@@ -146,6 +165,13 @@ The [MIT License][license]
 [convention]: https://en.wikipedia.org/wiki/Coding_conventions#
 [ccomits]: https://www.conventionalcommits.org/en/v1.0.0/
 [semver]: https://semver.org/
+[gapi]: https://docs.github.com/en/rest?apiVersion=2022-11-28
+
+[rulesets]: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
+[actions]: https://docs.github.com/en/actions/writing-workflows
+[secpolic]: https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository
+[readme]: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes
+[guides]: https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors
 
 [author-url]: https://github.com/nicholaswmin
 [license]: ./LICENSE
