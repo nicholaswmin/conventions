@@ -49,7 +49,7 @@ Run: `node --run create`
 
 ## License 
 
-The [MIT License]
+The [MIT License][license]
 
 [owner-url]: https://github.com/nicholaswmin
 [license]: ./LICENSE
