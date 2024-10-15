@@ -5,9 +5,8 @@
 > document are to be interpreted as described in [RFC 2119][rfc-2119]. 
 
 - [Keep it simple][kiss]. Anything else, [you don't need it][yagni].  
-- The runtime, source code & Github defaults are the *only* 1st-class citizens.       
-  Any 3rd-party modules, services & conventions are *undesirable* dependencies.
-- A robust & well-defined test suite is more valuable than the source code.
+- The runtime & source code should be the *only* dependencies.[^1]
+- A well-defined test suite is more valuable than the source code.
 
 ## Publishing
 
@@ -131,3 +130,8 @@ git commit -m"feat:! mark 'name' as required parameter"
 [gh-relea]: https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
 
 [author-url]: <<author-url>>
+
+### Footnotes 
+
+[^1]: Any 3rd-party modules, services & even processes/conventions are 
+      *undesirable* dependencies.
