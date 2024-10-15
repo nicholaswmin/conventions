@@ -105,7 +105,7 @@ git commit -m"feat:! mark 'name' as required parameter"
 
 ## Authors
 
-> authors: [@<<author>>][author-url]
+[@<<author>>][author-url]
 
 [semver]: https://semver.org/
 [pola]: https://en.wikipedia.org/wiki/Principle_of_least_astonishment
