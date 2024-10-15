@@ -11,7 +11,7 @@
 
 ## Publishing
 
-> create a [Github Release][gh-relea]
+> create a [Github Release][gh-relea], i.e:
 
 ```bash
 gh release create 1.7.1
@@ -27,7 +27,7 @@ gh release list
 
 ## Branching
 
-> follows [Github Flow][ghb-flow], a lightweight model:
+> follows [Github Flow][ghb-flow], a lightweight branching model.
 
 1. Create a branch.  
    Use a concise name, i.e: `increase-test-timeout`.
@@ -90,7 +90,7 @@ git commit -m"feat:! mark 'name' as required parameter"
 
 ## Security 
 
-> should read & abide by the following guidelines
+> Contributors should read & abide by the following guidelines:
 
 #### [Github Docs: Code Security][ghcs-wsite]
   
