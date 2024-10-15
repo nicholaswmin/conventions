@@ -7,6 +7,8 @@
 //    Keep `owner` optional in case repo is about to be created.
 //  - this class might be unnecessary and removing it is probably best.
 
+const quote = str => `"${str}"`
+
 class Repo {
   constructor({ name, author = null }) {
     Object.defineProperties(this, {
@@ -19,21 +21,19 @@ class Repo {
       },
       author_url: { 
         enumerable: true,
-        get() {
-          return `https://github.com/${this.author}`
-        }
+        get() { return `https://github.com/${this.author}` }
       },
       repo_url: {
         enumerable: true,
-        get() {
-          return `${this.author_url}/${this.name}`
-        }
+        get() { return `${this.author_url}/${this.name}` }
+      },
+      git_url: {
+        enumerable: true,
+        get() { return `${this.repo_url}.git` }
       },
       homepage_url: {
         enumerable: true,
-        get() {
-          return `https://${this.author}.github.io/${this.name}`
-        }
+        get() { return `https://${this.author}.github.io/${this.name}` }
       }
     })
   }
@@ -53,25 +53,26 @@ class Repo {
   // after auth:
   //  - if repo exists, fill the rest
   //  - else wait until repo creation
-  setDetails({ description, node_version, license } = {}) {
+  setDetails({ description, node_version, keywords, coverage, license } = {}) {
+    // @TODO verify, sanitize
     Object.defineProperties(this, {
-      description:  { value: description,  enumerable: true },
-      node_version: { value: node_version, enumerable: true },
-      license:      { value: license,      enumerable: true }
+      description:  { value: description,                   enumerable: true },
+      node_version: { value: node_version,                  enumerable: true },
+      keywords:     { value: keywords.map(quote).join(','), enumerable: true },
+      coverage:     { value: coverage.toString(),           enumerable: true },
+      sig_coverage: { value: +coverage < 100 ? '%3E' : '',  enumerable: true },
+      node_version: { value: node_version,                  enumerable: true },
+      license:      { value: license,                       enumerable: true }
     })
     
     return this
   }
   
-  get path() {
-    return { repo: this.name, owner: this.author }
-  }
+  get path() { return { repo: this.name, owner: this.author } }
 
   get tokens() { 
-    console.log(Object.getOwnPropertyDescriptors(this))
     const toTokens = key => ({ 
-      value: this[key], 
-      key: `<<${key.split('_').join('-')}>>` 
+      value: this[key],  key: `<<${key.split('_').join('-')}>>` 
     })
 
     return Object.keys(Object.getOwnPropertyDescriptors(this)).map(toTokens)

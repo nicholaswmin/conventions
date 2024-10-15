@@ -20,32 +20,38 @@ npm i @<<author>>/<<name>>
 ```js
 import { greet } from '@<<author>>/<<name>>'
 
-const hi = greet()
+const greeting = greet('John')
 
-console.log(hi) 
-// tada!
+console.log(greeting) 
+// 'Hello John'
 ```
 
 ## API
 
 ### `greet(name)`
 
-> Produces a *greeting* based on the given `name`
+#### Parameters
 
-| name     | type     | desc.          | default  |
+| name     | type     | description    | required |
 |----------|----------|----------------|----------|
-| `name`   | `string` | an actual name | required |
+| `name`   | `string` | a persons name | yes      |
+
+#### Returns
+
+| name       | type     | description |    
+|------------|----------|-------------|
+| `greeting` | `string` | A greeting  | 
 
 
 ## Tests
 
-> unit tests:
+> unit:
 
 ```bash
 node --run test
 ```
 
-> tests *require* that certain [coverage thresholds][ccovt] are met.
+> **note**: certain [coverage thresholds][ccovt] must be met.
 
 ## Contributing
 
@@ -57,14 +63,14 @@ Read the [Contributions Guide][cnt-guide].
 
 Licensed under: [<<license>>][license]  
 
-## Notes 
+### Footnotes 
 
 [^1]: Hello world, this is a footnote.
 
 [testb]: <<repo-url>>/actions/workflows/tests.yml/badge.svg
 [tests]: <<repo-url>>/actions/workflows/tests.yml
-[cocov]: https://img.shields.io/badge/coverage-%3E%2095%25-blue
-[ccovt]: <<repo-url>>/blob/main/package.json
+[cocov]: https://img.shields.io/badge/coverage-<<sig-coverage>>%20<<coverage>>%25-blue
+[ccovt]: <<repo-url>>/blob/main/package.json#L11
 
 [cnt-guide]: ./.github/CONTRIBUTING.md
 [author-url]: <<author-url>>

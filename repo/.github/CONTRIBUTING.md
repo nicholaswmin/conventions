@@ -19,7 +19,7 @@
 gh release create 1.7.1
 ```
 
-> note: **must not** include a `v` prefix 
+> note: *must not* include a `v` prefix 
 
 List current releases:
 
@@ -29,47 +29,68 @@ gh release list
 
 ## Branching
 
-> follow [Github Flow][ghb-flow]:
+> *must* follow [Github Flow][ghb-flow]:
 
 1. Create a branch.  
-   Use a concise name, i.e: `increase-test-timeout`
+   Use a concise name, i.e: `increase-test-timeout`.
 2. Push code changes to the branch.  
-   Commit messages *must* follow [conventions](#commit-messages)
-4. Create a pull request
-5. Address review comments
-6. When approved, merge the PR & delete the branch
-.
+   Commit messages *must* follow [conventions](#commit-messages).
+4. Create a pull request.
+5. Address review comments.
+6. When approved, merge the PR & delete the branch.
+
 > **note:** `default`/`main` branch *must* always
 > exist in a working & deployable state.
 
 ## Commit messages
+ 
+> *must* follow [Conventional Commits][cc-about], a convention dovetailing 
+> with Semver.   
 
-> follow [Conventional Commits][cc-about], requiring a format:
+It prescribes the following format:
 
 ```bash
-<type> <description>
+<type>: <description>
 ```
 
-- `<type>` *must* be any of: `fix:` or `feat:` or [specific others][cc-specs].
-- `<description>` *must* be a short summary of code changes.
+where:
 
-examples:
+- `<type>`: any of: `fix` or `feat` or [specific others][cc-specs].
+- `<description>`: a short summary of code changes.
+
+Commits with breaking changes *must* append `!` after `<type>`:
+
+```bash
+<type>!: <description>
+```
+
+### Examples
+
+#### Non-breaking changes
 
 ```bash
 # Good:
 git commit -m"fix: array parsing issue with multiple spaces"
 
 # Bad:
-# - "feat." is invalid. Use "feat:" or "fix:"
-git commit -m"feat. users can reset their password"
+# "fixed" is invalid, use "feat" or "fix" postfixed with ":"
+git commit -m"fixed array parsing issue with multiple spaces"
 
 # Bad:
-# - missing space between <type> & <description>.
-git commit -m"fix:array parsing..."
+# missing a space between `<type>:` and `<description>`
+git commit -m"fix: array parsing issue with multiple spaces"
 ```
 
-> **note:** breaking changes *must* consult the [specification][cc-specs], which 
-> also includes more specific formats.
+#### Breaking changes
+
+```bash
+# Good:
+git commit -m"feat!: mark 'name' as required parameter"
+
+# Bad:
+# "!" must come before ":", not after.
+git commit -m"feat:! mark 'name' as required parameter"
+```
 
 ## Authors
 

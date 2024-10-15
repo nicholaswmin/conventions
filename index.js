@@ -18,10 +18,18 @@ try {
   const results = {
     ...await api.repos.create({ 
       description: 'A state machine',
+      coverage: 100,
+      keywords: ["foo", "bar"],
       node_version: '22.9', license: 'MIT' 
     }),
     documents: await api.repos.addDocuments([
       await fsr.getDocument('README.md'),
+      await fsr.getDocument('package.json'),
+
+      await fsr.getDocument('src/index.js'),
+      await fsr.getDocument('test/greet/args.test.js'),
+      await fsr.getDocument('test/greet/greet.test.js'),
+
       ...await fsr.getDirDocuments('.github'),
       ...await fsr.getDirDocuments('.github/workflows'),
     ].map(doc => doc.replaceTokens(api.repo.tokens))),

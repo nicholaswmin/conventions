@@ -8,30 +8,20 @@ on:
 
 jobs:
   test:
-    name: test
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 3
+    env:
+      NODE_ENV: test
     strategy:
       matrix:
         node-version: [<<node-version>>, latest]
 
     steps:
-    
-    - name: Checkout branch ${{ github.head_ref || github.ref_name }} 
-      uses: actions/checkout@v4
-
-    - name: Setup Node ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-
     # CI tests should install unpinned dependencies
-    #  - from: OSSF: Package Manager Best Practices
-    - name: Install unpinned dependencies
-      run: npm install --no-package-lock
-      
-    - name: Run tests
-      run: node --run test
-      env:
-        NODE_ENV: test
+    #  - from: OSSF: Package Manager Best Practices: npm
+    - run: npm install --no-package-lock
+    - run: node --run test
