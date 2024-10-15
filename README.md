@@ -19,7 +19,7 @@ appropriate file structure and configuration.
 ## Usage
 
 ```bash
-node --run new --conventions-dir=./conventions
+node --run new --conventions=./conventions
 ```
 
 ### Flow
@@ -39,6 +39,8 @@ node --run new --conventions-dir=./conventions
 ## Todo
 
 - [ ] Add tests
+- [ ] Merge stuff
+- [ ] Use the `--conventions` params
 - [ ] Fix rulesets (waiting for Github support reply)
 
 ## Authors
