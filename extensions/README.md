@@ -35,7 +35,7 @@ export default {
   name: 'foo',
   async bar() {
     // Github APIs are namespaced under `this.api`
-    this.api.repos.get(this.repo.path) // 
+    this.api.repos.get(this.repo.path)
     
     // Sibling methods are 
     // namespaced under `this.<name>`
