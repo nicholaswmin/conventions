@@ -90,7 +90,7 @@ git commit -m"feat:! mark 'name' as required parameter"
 
 ## Security 
 
-Should read & abide by the following guidelines
+> should read & abide by the following guidelines
 
 #### [Github Docs: Code Security][ghcs-wsite]
   
