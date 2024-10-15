@@ -13,11 +13,22 @@ const list = await fsc.listAll()
 
 list.process({
   tokens: [
-    new Token('author', 'nicholaswmin'),
-    new Token('author_url', 'https://github.com/nicholaswmin')
+    new Token('name', 'greet'),
+    new Token('author', 'johndoe'),
+    new Token('description', 'a sample repo'),
+    new Token('author_url', 'https://github.com/johndoe'),
+    new Token('repo_url', 'https://github.com/johndoe/greet'),
+    new Token('git_url', 'https://github.com/johndoe/greet.git'),
+
+    new Token('coverage', '95'),
+    new Token('sig_coverage', '>'),
+    new Token('node_version', '22'),
+    new Token('license', 'MIT')
   ]
 })
 
+console.log(list.toTree())
+console.log(list.search('CONTR'))
 
 /*
 try {
