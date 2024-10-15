@@ -176,7 +176,7 @@ my-repo
 └── package.json
 ```
 
-This repository now supports:
+This repository now supports the following conventions/practices:
 
 - [Semver][semver]:
   - a workflow to `publish.yml` to `npm` 
@@ -195,12 +195,11 @@ This repository now supports:
 
 ## Flow
 
-- Markdown documents (`README.md`, `CONTRIBUTING.md` etc...) are merged
-- Rulesets are uploaded as-is
-- Workflows are added as-is in the `.gitub/workflows/<workflow>.yml`
-- `package.json` is merged
-- All other documents are added as-is.
-  
+- Some files are merged by `section`, i.e markdown documents such as `README`.
+- Other files are merged by-property, i.e `package.json`
+- Other files are left-intact and added side-by-side in the same folder,
+  i.e `ruleset.json`, `workflows.yml` etc
+
 ## Notes
 
 - Github API extensions are in: `./extensions`
