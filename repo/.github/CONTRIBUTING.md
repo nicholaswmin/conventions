@@ -41,8 +41,8 @@ gh release list
 
 ## Commit messages
  
-> follow [Conventional Commits][cc-about], a convention dovetailing with Semver,   
-> which prescribes the following format:
+> follow [Conventional Commits][cc-about] which dovetails with Semver,     
+> and prescribes the following format:
 
 ```bash
 <type>: <description>
