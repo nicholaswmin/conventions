@@ -1,13 +1,13 @@
 import { join } from 'node:path'
 import { readdir, readFile } from 'node:fs/promises'
-import { Convention, File } from '../classes/index.js'
+import { ConventionsList, Convention, File } from '../classes/index.js'
 
 class FSConventions {
   constructor(dir) {
     this.dir = dir
   }
   
-  async create() {
+  async listAll() {
     const conventions = await this.#getAscendingConventions(this.dir)
 
     for (const convention of conventions) {
@@ -15,14 +15,11 @@ class FSConventions {
         const path = join(dirent.parentPath, dirent.name)
         const content = await readFile(path, 'utf8')
 
-        if (File.isDocument(dirent))
-          convention.addDocument(dirent, content)
-        else 
-          convention.addFile(dirent, content)
+        convention.addFileFromDirent(dirent, content)
       }
     }
 
-    return conventions
+    return new ConventionsList(conventions)
   }
   
   async #getAscendingConventions(path) {

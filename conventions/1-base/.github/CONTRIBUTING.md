@@ -55,6 +55,8 @@ gh release list
 - [Concise Guide for Evaluating Open Source Software][ossf-dep-g]
 - [Build Provenance][ossf-build]
 
+<!---content-->
+
 ## Authors
 
 [@<<author>>][author-url]

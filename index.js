@@ -9,14 +9,15 @@ const api = await createApi(join(import.meta.dirname, './extensions'), {
   author: 'nicholaswmin'
 })
 
-const conventions = await fsc.create()
+const list = await fsc.listAll()
 
-conventions.forEach(convention => convention.replacePlaceholders([
-  new Token('author', 'nicholaswmin'),
-  new Token('author_url', 'https://github.com/nicholaswmin')
-]))
+list.process({
+  tokens: [
+    new Token('author', 'nicholaswmin'),
+    new Token('author_url', 'https://github.com/nicholaswmin')
+  ]
+})
 
-console.log(conventions[0].files[8].content.replaced)
 
 /*
 try {

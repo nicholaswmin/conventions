@@ -1,6 +1,153 @@
 import { join, extname } from 'node:path'
 
+class FileGroup {
+  constructor(file) {
+    this.path = file.path
+    this.name = file.name
+    this.content = ''
+    this.files = [file]
+  }
+  
+  add(file) {
+    this.files.push(file)
+    
+    return this
+  }
+  
+  merge() {
+    const merge = (acc, file) => acc.merge(file)
+
+    this.merged = this.files.reduce(merge)
+      
+    return this
+  }
+}
+
+class File {
+  constructor({ name, path }, content) {
+    Object.defineProperties(this, {
+      name:    { value: name, enumerable: true },
+      path:    { value: path, enumerable: true },
+      content: { value: {},   enumerable: true },
+    })
+    
+    Object.defineProperties(this.content, {
+      raw: { value: content, enumerable: true }
+    })
+  }
+  
+  replacePlaceholders(tokens = []) {
+    Object.defineProperty(this.content, 'replaced', {
+      value: tokens.reduce((replaced, token) => replaced.replaceAll(
+        token.placeholder, token.value
+      ), this.content.raw),
+      enumerable: true
+    })
+    
+    // @TODO throw if remaining placeholders 
+
+    return this
+  }
+  
+  merge(raw) {
+    return 'foo'
+  }
+  
+  static matches({ name, parentPath }) {
+    return true
+  }
+}
+
+class Ruleset extends File { 
+  static matches({ name, parentPath }) {
+    return parentPath.endsWith('rulesets') && extname(name).includes('json')
+  }
+}
+
+class JSON extends File { 
+  static matches({ name, parentPath }) {
+    return extname(name).includes('json')
+  }
+}
+
+class Document extends File {  
+  static matches({ name, parentPath }) {
+    return extname(name).includes('md')
+  }
+  
+  merge(document) {
+    // @TODO 
+    // - build a pure mergeMarkDown() function
+    //   - parse out references
+    //   - parse out sections
+    // - create new file with distinct sections
+
+    const split = this.content.raw.split('\n')
+    const index = split.findIndex(line => line.includes('content-->'))
+
+    split.splice(index - 2, 0, `\n`)
+    split.splice(index - 1, 0, document.content.raw)
+    
+    Object.defineProperty(this.content, 'merged', {
+      value: split,
+      enumerable: true
+    })
+
+    return this
+  }
+
+  toUploadable() {
+    return {
+      path: this.path,
+      content: Buffer.from(this.content.replaced || this.content.raw)
+        .toString('base64')
+    }
+  }
+  
+  toCommitMessage() {
+    return `docs: add ${this.name}`
+  }
+}
+
+
+class ConventionsList {
+  constructor(conventions) {
+    this.items = [...conventions]
+  }
+  
+  process({ tokens }) {
+    const merged = this.mergeFileGroups()
+    
+    console.log(merged)
+  }
+  
+  mergeFileGroups() {
+    return this.reduceToFileGroups().map(group => group.merge())
+  }
+  
+  reduceToFileGroups() {
+    const filesToFileGroupsByPath = (filegroups, file) => ({
+      ...filegroups, 
+      [file.path]: filegroups[file.path] ? 
+        filegroups[file.path].add(file) : 
+        new FileGroup(file)
+    })
+    
+    const mergeToFileGroups = (acc, convention) => 
+      convention.files.reduce(filesToFileGroupsByPath, acc)
+    
+    return Object.values(this.items.reduce(mergeToFileGroups, {}))
+  }
+}
+
 class Convention {
+  static types = [
+    Ruleset,
+    Document,
+    JSON,
+    File
+  ]
+
   constructor({ name, parentPath }) {
     Object.defineProperties(this, {
       name:  { value: this.#trimNumericPrefix(name), enumerable: true },
@@ -9,21 +156,17 @@ class Convention {
       files: { value: [],                            enumerable: true }
     })
   }
-
-  addFile({ name, parentPath }, content) {
-    this.files.push(new File({  
-      name, path: this.#reducePath(join(parentPath, name))
-    }, content))
-  }
   
-  addDocument({ name, parentPath }, content) {
-    this.files.push(new Document({ 
+  addFileFromDirent({ parentPath, name }, content) {
+    const Type = Convention.types.find(t => t.matches({ parentPath, name }))
+
+    this.files.push(new Type({
       name, path: this.#reducePath(join(parentPath, name))
     }, content))
   }
   
   replacePlaceholders(tokens = []) {
-    return this.files.filter(file => file instanceof Document)
+    return this.files.filter(file => file instanceof File)
       .forEach(document => document.replacePlaceholders(tokens))  
   }
   
@@ -50,55 +193,6 @@ class Convention {
   }
 }
 
-class File {
-  constructor({ name, path }, content) {
-    Object.defineProperties(this, {
-      name:    { value: name, enumerable: true },
-      path:    { value: path, enumerable: true },
-      content: { value: {},   enumerable: true },
-    })
-    
-    Object.defineProperties(this.content, {
-      raw: { value: content, enumerable: true }
-    })
-  }
-  
-  static isDocument({ name }) {
-    return ['.md'].includes(extname(name))
-  }
-}
-
-class Document extends File {
-  constructor({ path, name }, content) {
-    super({ path, name }, content)
-  }
-  
-  toUploadable() {
-    return {
-      path: this.path,
-      content: Buffer.from(this.content.replaced || this.content.raw)
-        .toString('base64')
-    }
-  }
-  
-  toCommitMessage() {
-    return `docs: add ${this.name}`
-  }
-  
-  replacePlaceholders(tokens = []) {
-    Object.defineProperty(this.content, 'replaced', {
-      value: tokens.reduce((replaced, token) => replaced.replaceAll(
-        token.placeholder, token.value
-      ), this.content.raw),
-      enumerable: true
-    })
-    
-    // @TODO throw if remaining placeholders 
-
-    return this
-  }
-}
-
 class Token { 
   constructor(key, value) {
     this.key = key.trim().split('_').join('-')
@@ -112,4 +206,4 @@ class Token {
   }
 }
 
-export { Convention, File, Token }
+export { ConventionsList, Convention, File, Token }
