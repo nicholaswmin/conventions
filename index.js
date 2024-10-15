@@ -1,16 +1,37 @@
 import { join } from 'node:path'
-import { createApi } from './src/api/index.js'
-import { FsRepo } from './src/fs-repo/index.js'
-import { createOctokitRest, handleAPIError } from './src/octokit/index.js'
+import { Token } from './src/conventions/classes/index.js'
+import { FSConventions, writeRepoToDir } from './src/conventions/fs/index.js'
+import { createApi, handleApiError } from './src/api/index.js'
 
-const fsr = new FsRepo({ repoDir: join(import.meta.dirname, './repo') })
-const api = await createApi(await createOctokitRest(), { 
-  extDir: join(import.meta.dirname, './extensions')
-}, { 
+
+const fsc = new FSConventions(join(import.meta.dirname, './conventions'))
+const api = await createApi(join(import.meta.dirname, './extensions'), { 
   name: 'sample-repo',
   author: 'nicholaswmin'
 })
 
+const list = await fsc.listAll()
+const mergedFiles = list.process({
+  tokens: [
+    new Token('name', 'greet'),
+    new Token('author', 'johndoe'),
+    new Token('description', 'a sample repo'),
+    new Token('author_url', 'https://github.com/johndoe'),
+    new Token('repo_url', 'https://github.com/johndoe/greet'),
+    new Token('git_url', 'https://github.com/johndoe/greet.git'),
+    new Token('keywords', ['foo', 'bar']),
+
+    new Token('coverage', '95'),
+    new Token('sig_coverage', '>'),
+    new Token('node_version', '22'),
+    new Token('license', 'MIT')
+  ]
+})
+
+console.log(list.toTree())
+await writeRepoToDir(join(import.meta.dirname, './tmp'), mergedFiles)
+
+/*
 try {
   const results = {
     ...await api.repos.createOrOverwrite({ 
@@ -21,17 +42,17 @@ try {
     }),
     pages: await api.repos.createPagesSite({ branch: 'main' }),
     documents: await api.repos.addDocuments([
-      await fsr.getDocument('README.md'),
-      await fsr.getDocument('package.json'),
+      await fs.getDocument('README.md'),
+      await fs.getDocument('package.json'),
 
-      await fsr.getDocument('src/index.js'),
-      await fsr.getDocument('test/greet/args.test.js'),
-      await fsr.getDocument('test/greet/greet.test.js'),
+      await fs.getDocument('src/index.js'),
+      await fs.getDocument('test/greet/args.test.js'),
+      await fs.getDocument('test/greet/greet.test.js'),
 
-      ...await fsr.getDirDocuments('.github'),
-      ...await fsr.getDirDocuments('.github/workflows'),
+      ...await fs.getDirDocuments('.github'),
+      ...await fs.getDirDocuments('.github/workflows'),
     ].map(doc => doc.replacePlaceholders(api.repo.tokens))),
-    //rulesets: await api.repos.addRulesets(await fsr.getRulesets()),
+    //rulesets: await api.repos.addRulesets(await fs.getRulesets()),
     v_report: await api.repos.enablePrivateVulnerabilityReporting(),
     cq_scans: await api.codeScanning.turnOnDefaultSetup()
   } 
@@ -43,7 +64,8 @@ try {
       console.log(key, value.status)
   })
 } catch (err) {
-  await handleAPIError(err)
+  await handleApiError(err)
 
   throw err
 }
+*/

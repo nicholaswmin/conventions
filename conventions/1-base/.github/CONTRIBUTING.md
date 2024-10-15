@@ -25,69 +25,6 @@ List current releases:
 gh release list
 ```  
 
-## Branching
-
-> follows [Github Flow][ghb-flow], a lightweight branching model.
-
-1. Create a branch.  
-   Use a concise name, i.e: `increase-test-timeout`.
-2. Push code changes to the branch.  
-   Commit messages *must* follow [conventions](#commit-messages).
-4. Create a pull request.
-5. Address review comments.
-6. When approved, merge the PR & delete the branch.
-
-> **note:** `default`/`main` branch *must* always
-> exist in a working & deployable state.
-
-## Commit messages
- 
-> follow [Conventional Commits][cc-about] which dovetails with Semver and 
-> follows this format:
-
-```bash
-<type>: <description>
-```
-
-where:
-
-- `<type>`: any of `fix` or `feat` or [specific others][cc-specs].
-- `<description>`: a short summary of code changes.
-
-Commits with breaking changes *must* append `!` after `<type>`:
-
-```bash
-<type>!: <description>
-```
-
-### Examples
-
-#### Non-breaking changes
-
-```bash
-# Good:
-git commit -m"fix: array parsing issue with multiple spaces"
-
-# Bad:
-# "fixed" is invalid, use "feat" or "fix" postfixed with ":"
-git commit -m"fixed array parsing issue with multiple spaces"
-
-# Bad:
-# missing a space between `<type>:` & `<description>`
-git commit -m"fix: array parsing issue with multiple spaces"
-```
-
-#### Breaking changes
-
-```bash
-# Good:
-git commit -m"feat!: mark 'name' as required parameter"
-
-# Bad:
-# "!" must come before ":", not after.
-git commit -m"feat:! mark 'name' as required parameter"
-```
-
 ## Security 
 
 > Contributors should read & abide by the following guidelines:
@@ -103,6 +40,8 @@ git commit -m"feat:! mark 'name' as required parameter"
 - [Concise Guide for Evaluating Open Source Software][ossf-dep-g]
 - [Build Provenance][ossf-build]
 
+<!---content-end-->
+
 ## Authors
 
 [@<<author>>][author-url]
@@ -113,7 +52,6 @@ git commit -m"feat:! mark 'name' as required parameter"
 [kiss]: https://en.wikipedia.org/wiki/KISS_principle
 [yagni]: https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it#
 
-[ghb-flow]: https://docs.github.com/en/get-started/using-github/github-flow
 [cc-about]: https://www.conventionalcommits.org/en/v1.0.0/#summary
 [cc-specs]: https://www.conventionalcommits.org/en/v1.0.0/#specification
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt
