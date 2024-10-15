@@ -24,7 +24,7 @@ A `convention` is a self-contained folder that describes a
 
 Each `convention` self-contains all the necessary:
 
-- [documents]
+- Any documents
   - [README.md][readme]
   - [guides][guides]
   - [policies][secpolic]
