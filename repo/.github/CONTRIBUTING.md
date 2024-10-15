@@ -27,7 +27,7 @@ gh release list
 
 ## Branching
 
-> *must* follow [Github Flow][ghb-flow]:
+> follow [Github Flow][ghb-flow], a very lightweight flow:
 
 1. Create a branch.  
    Use a concise name, i.e: `increase-test-timeout`.
@@ -42,7 +42,7 @@ gh release list
 
 ## Commit messages
  
-> *must* follow [Conventional Commits][cc-about], a convention dovetailing 
+> follow [Conventional Commits][cc-about], a convention dovetailing 
 > with Semver.   
 
 It prescribes the following format:
@@ -75,7 +75,7 @@ git commit -m"fix: array parsing issue with multiple spaces"
 git commit -m"fixed array parsing issue with multiple spaces"
 
 # Bad:
-# missing a space between `<type>:` and `<description>`
+# missing a space between `<type>:` & `<description>`
 git commit -m"fix: array parsing issue with multiple spaces"
 ```
 

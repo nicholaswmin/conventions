@@ -24,8 +24,6 @@ class Document {
   }
   
   replaceTokens(tokens = []) {
-    console.log(tokens)
-    
     const replaceToken = token => 
       this.content = this.content.replaceAll(token.key, token.value)
 
