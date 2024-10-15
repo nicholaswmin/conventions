@@ -19,6 +19,17 @@ A CLI app that uses the [Github API][gapi] to create repositories.
 The repositories are described as a list of pluggable, 
 user-definable `conventions`.
 
+> example: A `base` plus 4 different `conventions`:
+
+```
+├─ conventions/
+   ├─ base/
+   ├─ unit-testing/
+   ├─ conventional-commits/
+   ├─ semver/
+   ├─ github-flow/
+```
+
 A `convention` is a self-contained folder that describes a 
 [coding convention][convention], e.g [conventional-commits][ccomits].
 
@@ -35,17 +46,6 @@ Each `convention` self-contains all the necessary:
 - etc. 
 
 to add that convention to the repository.
-
-> example: a `base` plus 4 different `conventions`:
-
-```
-├─ conventions/
-   ├─ base/
-   ├─ unit-testing/
-   ├─ conventional-commits/
-   ├─ semver/
-   ├─ github-flow/
-```
 
 ### The `base convention` 
 
