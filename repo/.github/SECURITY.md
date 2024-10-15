@@ -1,7 +1,7 @@
 # Security Policy
 
-> The authors take security issues seriously.   
-> We appreciate your efforts to responsibly disclose your findings
+> The authors take security issues seriously & appreciate your efforts to 
+> responsibly disclose your findings.
 
 ## Report vulnerabilities
 
