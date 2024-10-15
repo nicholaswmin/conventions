@@ -4,7 +4,8 @@
 > `should`, `should not`, `recommended`, `may`, and `optional` in this   
 > document are to be interpreted as described in [RFC 2119][rfc-2119]. 
 
-- [Keep it simple][kiss]. Anything else, [you don't need it][yagni].  
+- [Do one thing & do it well][done]. [Keep it simple][kiss]. 
+  Anything else, [you don't need it][yagni].  
 - The runtime & source code should be the *only* dependencies.[^1]
 - A well-defined test suite is more valuable than the source code.
 
@@ -107,6 +108,7 @@ git commit -m"feat:! mark 'name' as required parameter"
 [@<<author>>][author-url]
 
 [semver]: https://semver.org/
+[done]: https://en.wikipedia.org/wiki/Unix_philosophy#Do_One_Thing_and_Do_It_Well
 [pola]: https://en.wikipedia.org/wiki/Principle_of_least_astonishment
 [kiss]: https://en.wikipedia.org/wiki/KISS_principle
 [yagni]: https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it#
