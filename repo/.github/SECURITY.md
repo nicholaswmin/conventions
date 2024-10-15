@@ -33,7 +33,7 @@ All contributors are expected to read & abide by the [Security Guidelines][sec-g
 
 <!-- References -->
 
-[sec-guide]: .github/CONTRIBUTING.md#Security
+[sec-guide]: /.github/CONTRIBUTING.md#Security
 [ghcs-wsite]: https://docs.github.com/en/code-security
 [ghcs-quick]: https://docs.github.com/en/code-security/getting-started/quickstart-for-securing-your-repository
 
