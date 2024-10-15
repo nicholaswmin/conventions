@@ -21,8 +21,6 @@ npm i @<<author>>/<<name>>
 
 ## Example
 
-> Basic 
-
 ```js
 import { greet } from '@<<author>>/<<name>>'
 
@@ -54,8 +52,6 @@ console.log(greeting)
 Read the [Contributions Guide][cnt-guide].
 
 ## Tests
-
-> unit tests
 
 ```bash
 node --run test
