@@ -7,12 +7,14 @@
 
 Run: `node --run create`
 
+- Flow: acquire token
 - Creates a repo  
-- Sets configuation (code scanning, allow rebase etc)  
-- Adds:   
-  - docs with repo-specific info(authors, URLs etc..)
-  - workflows (`test`, `publish` etc ...)
-  - rulesets
+  - Sets configuation (code scanning, allow rebase etc)  
+  - Adds:   
+    - docs with repo-specific info(authors, URLs etc..)
+    - workflows (`test`, `publish` etc ...)
+    - rulesets
+    - etc...
   
 ## notes
 
@@ -26,11 +28,7 @@ Run: `node --run create`
 
 ## todo
 
-- [x] Fix hardcoded `auth` token in `octokit.js`
 - [ ] Add tests
-- [x] Implement `octokit` retry
-- [x] Supply `repo` externally
-  - fixed: uses `cwd` now.
 - [ ] Consider `Aspects`, grouped together forming an `Opinion`:   
   : i.e *"Conventional Commits"* is an `Aspect`,   
     as a self-contained folder with own:    

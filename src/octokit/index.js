@@ -2,6 +2,7 @@ import * as qs from 'node:querystring'
 import { execFile as execFileCB } from 'node:child_process'
 import { promisify } from 'node:util'
 import { Octokit } from '@octokit/rest'
+import { retry } from '@octokit/plugin-retry'
 
 const CONFIG = {
   TOKEN: {
