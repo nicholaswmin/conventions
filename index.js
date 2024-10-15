@@ -1,9 +1,23 @@
 import { join } from 'node:path'
-import { createApi } from './src/api/index.js'
-import { FsRepo } from './src/fs-repo/index.js'
+import { Token } from './src/conventions/classes/index.js'
+import { FSConventions } from './src/conventions/fs/index.js'
 import { createOctokitRest, handleAPIError } from './src/octokit/index.js'
+import { createApi } from './src/api/index.js'
 
-const fsr = new FsRepo({ repoDir: join(import.meta.dirname, './repo') })
+const fsc = new FSConventions({
+  dir: join(import.meta.dirname, './conventions')
+})
+
+const conventions = await fsc.create()
+
+conventions.forEach(convention => convention.replacePlaceholders([
+  new Token('author', 'nicholaswmin'),
+  new Token('author_url', 'https://github.com/nicholaswmin')
+]))
+
+console.log(conventions[0].files[8].content.replaced)
+
+/*
 const api = await createApi(await createOctokitRest(), { 
   extDir: join(import.meta.dirname, './extensions')
 }, { 
@@ -21,17 +35,17 @@ try {
     }),
     pages: await api.repos.createPagesSite({ branch: 'main' }),
     documents: await api.repos.addDocuments([
-      await fsr.getDocument('README.md'),
-      await fsr.getDocument('package.json'),
+      await fs.getDocument('README.md'),
+      await fs.getDocument('package.json'),
 
-      await fsr.getDocument('src/index.js'),
-      await fsr.getDocument('test/greet/args.test.js'),
-      await fsr.getDocument('test/greet/greet.test.js'),
+      await fs.getDocument('src/index.js'),
+      await fs.getDocument('test/greet/args.test.js'),
+      await fs.getDocument('test/greet/greet.test.js'),
 
-      ...await fsr.getDirDocuments('.github'),
-      ...await fsr.getDirDocuments('.github/workflows'),
+      ...await fs.getDirDocuments('.github'),
+      ...await fs.getDirDocuments('.github/workflows'),
     ].map(doc => doc.replacePlaceholders(api.repo.tokens))),
-    //rulesets: await api.repos.addRulesets(await fsr.getRulesets()),
+    //rulesets: await api.repos.addRulesets(await fs.getRulesets()),
     v_report: await api.repos.enablePrivateVulnerabilityReporting(),
     cq_scans: await api.codeScanning.turnOnDefaultSetup()
   } 
@@ -47,3 +61,4 @@ try {
 
   throw err
 }
+*/
