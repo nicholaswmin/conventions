@@ -67,7 +67,7 @@ Create a [gh release][gh_rl], i.e:
 gh release create 1.7.1
 ```
 
-> autopublishes to [npm][npmjs] with [provenance][pr_st]
+> **note**: publishes to [npm][npmjs] with [provenance][pr_st]
 
 ## Authors
 
