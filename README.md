@@ -196,7 +196,7 @@ This repository now supports the following conventions/practices:
 ## Flow
 
 - Some files are merged by `section`, i.e markdown documents such as `README`.
-- Other files are merged by-property, i.e `package.json`
+- Other files are merged by `property`, i.e `package.json`
 - Other files are left-intact and added side-by-side in the same folder,
   i.e `ruleset.json`, `workflows.yml` etc
 
