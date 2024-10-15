@@ -51,7 +51,7 @@ gh release list
 
 where:
 
-- `<type>`: any of: `fix` or `feat` or [specific others][cc-specs].
+- `<type>`: any of `fix` or `feat` or [specific others][cc-specs].
 - `<description>`: a short summary of code changes.
 
 Commits with breaking changes *must* append `!` after `<type>`:
