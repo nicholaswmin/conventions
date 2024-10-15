@@ -132,6 +132,10 @@ unit-testing
 └── package.json
 ```
 
+### Example E: [whatever `convention`][ccomits]
+
+Conventions are user-definable so anything goes.
+
 ## Usage
 
 Run this CLI app and point to a `conventions` folder:
