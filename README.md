@@ -1,6 +1,6 @@
 # conventions
 
-> A repository configurator  
+> A repository configurator   
 > WIP
 
 * [Overview](#overview)
@@ -19,12 +19,14 @@ A `Convention` is a self-contained folder that describes a
 
 > example: a `base` plus 4 different `conventions`:
 
+```
 ├─ conventions/
    ├─ base/
    ├─ unit-testing/
    ├─ conventional-commits/
    ├─ semver/
    ├─ github-flow/
+```
 
 ### The `base convention` 
 
