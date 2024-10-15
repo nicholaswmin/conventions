@@ -24,8 +24,8 @@ const RetryOctokit = Octokit.plugin(retry)
 
 const createOctokitRest = async () => (new RetryOctokit({ 
   auth: await getToken(),
-  retry: { doNotRetry: [401] },
-  request: { retries: 2, retryAfter: 1 }
+  retry: { doNotRetry: [401, 404] },
+  request: { retries: 1, retryAfter: 1 }
 })).rest
 
 const handleAPIError = async err => {

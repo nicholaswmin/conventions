@@ -61,13 +61,13 @@ node --run test
 
 ## Publishing
 
-> create a [gh release][gh_rl], i.e:
+Create a [gh release][gh_rl], i.e:
 
 ```bash
 gh release create 1.7.1
 ```
 
-which also publishes to [`npm`][npmjs]
+> autopublishes to [npm][npmjs] with [provenance][pr_st]
 
 ## Authors
 
@@ -88,7 +88,8 @@ The [<<license>> License][license]
 
 [npmjs]: https://www.npmjs.com/
 [gh_rl]: https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
-
+[pr_st]: https://docs.npmjs.com/generating-provenance-statements
 [cnt-guide]: ./.github/CONTRIBUTING.md
+
 [author-url]: <<author-url>>
 [license]: ./LICENSE

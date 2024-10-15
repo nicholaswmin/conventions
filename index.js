@@ -7,14 +7,14 @@ const fsr = new FsRepo({ repoDir: join(import.meta.dirname, './repo') })
 const api = await createApi(await createOctokitRest(), { 
   extDir: join(import.meta.dirname, './extensions')
 }, { 
-  name: 'fsm-repo',
+  name: 'sample-repo',
   author: 'nicholaswmin'
 })
 
 try {
   const results = {
     ...await api.repos.createOrOverwrite({ 
-      description: 'A sample repo',
+      description: 'A repo autocreated by gh-good-repo',
       coverage: 95,
       keywords: ['sample', 'repo'],
       node_version: '22', license: 'MIT' 
