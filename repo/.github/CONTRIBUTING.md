@@ -11,13 +11,13 @@
 
 ## Publishing
 
-> *must* be created as a [Github Release][gh-relea] & follow [Semver][semver]:
+> create a [Github Release][gh-relea]:
 
 ```bash
 gh release create 1.7.1
 ```
 
-> note: *must not* include a `v` prefix 
+> note: versioning *must* follow [Semver][semver], without a `v` prefix 
 
 List current releases:
 
