@@ -4,13 +4,15 @@
 > WIP
 
 * [Overview](#overview)
+* [A convention](#a-convention)
   + [The `base convention`](#the--base-convention-)
-  + [A `convention`](#a--convention-)
+  + [An example `convention`](#an-example--convention-)
   + [Another `Convention`](#another--convention-)
 * [Usage](#usage)
 * [Flow](#flow)
 * [Notes](#notes)
 * [Todo](#todo)
+
 
 ## Overview
 
@@ -29,6 +31,8 @@ user-definable `conventions`.
    ├─ semver/
    ├─ github-flow/
 ```
+
+## A convention
 
 A `convention` is a self-contained folder that describes a 
 [coding convention][convention], e.g [conventional-commits][ccomits].
@@ -65,7 +69,7 @@ hence it's always required:
   └── package.json
 ```
 
-### A `convention`
+### An example `convention`
 
 A convention is a *partial* repository structure with all the necessary  
 documents and files to support the convention:
