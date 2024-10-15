@@ -23,7 +23,7 @@ class Document {
     return `docs: add ${this.filename}`
   }
   
-  replaceTokens(tokens = []) {
+  replacePlaceholders(tokens = []) {
     const replaceToken = token => 
       this.content = this.content.replaceAll(token.key, token.value)
 

@@ -13,11 +13,11 @@ const api = await createApi(await createOctokitRest(), {
 
 try {
   const results = {
-    ...await api.repos.create({ 
-      description: 'A state machine',
+    ...await api.repos.createOrOverwrite({ 
+      description: 'A sample repo',
       coverage: 95,
-      keywords: ['foo'],
-      node_version: '22.9', license: 'MIT' 
+      keywords: ['sample', 'repo'],
+      node_version: '22', license: 'MIT' 
     }),
     pages: await api.repos.createPagesSite({ branch: 'main' }),
     documents: await api.repos.addDocuments([
@@ -30,7 +30,7 @@ try {
 
       ...await fsr.getDirDocuments('.github'),
       ...await fsr.getDirDocuments('.github/workflows'),
-    ].map(doc => doc.replaceTokens(api.repo.tokens))),
+    ].map(doc => doc.replacePlaceholders(api.repo.tokens))),
     //rulesets: await api.repos.addRulesets(await fsr.getRulesets()),
     v_report: await api.repos.enablePrivateVulnerabilityReporting(),
     cq_scans: await api.codeScanning.turnOnDefaultSetup()

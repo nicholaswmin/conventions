@@ -29,6 +29,7 @@ Run: `node --run create`
 ## todo
 
 - [ ] Add tests
+- [ ] Fix rulesets (waiting for Github support reply)
 - [ ] Consider `Aspects`, grouped together forming an `Opinion`:   
   : i.e *"Conventional Commits"* is an `Aspect`,   
     as a self-contained folder with own:    

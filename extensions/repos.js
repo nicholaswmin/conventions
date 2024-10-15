@@ -1,6 +1,6 @@
 export default {
   name: 'repos',
-  async create(...args) {
+  async createOrOverwrite(...args) {
     this.repo.setDetails(...args)
 
     const deletion = await this.repos.exists() 
