@@ -13,8 +13,6 @@
 
 > *must* be created as a [Github Release][gh-relea] & follow [Semver][semver]:
 
-> example: publishing a new release:
-
 ```bash
 gh release create 1.7.1
 ```
