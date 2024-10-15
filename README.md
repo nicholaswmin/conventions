@@ -37,7 +37,8 @@ user-definable `conventions`.
 ## A `convention`
 
 A `convention` is a self-contained folder describing a general 
-[convention][convention], for example: [*Conventional Commits*][ccomits].
+[convention][convention],   
+for example: [*Conventional Commits*][ccomits].
 
 It's a *partial* repository structure with all the necessary  
 documents and files to support the convention:
