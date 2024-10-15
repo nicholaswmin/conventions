@@ -135,5 +135,6 @@ git commit -m"feat:! mark 'name' as required parameter"
 
 ### Footnotes 
 
-[^1]: Any 3rd-party modules, services & even processes/conventions are 
-      *undesirable* dependencies.
+[^1]: *Ideally*, a user - either standard or contributor - needs *zero* 
+      preparation to start working such as installing dependencies, 
+      reading documentation or getting accustomed to rules/conventions.
