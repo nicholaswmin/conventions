@@ -15,7 +15,7 @@
 ## Overview
 
 A `Convention` is a self-contained folder that describes a 
-[coding convention][convention], e.g [conventional-commits][ccommits].
+[coding convention][convention], e.g [conventional-commits][ccomits].
 
 > example: a `base` plus 4 different `conventions`:
 
@@ -65,7 +65,7 @@ documents and files to support the convention:
 
 ### Another `Convention`
 
-> example: The [Conventional Commits `convention`][ccommits]:
+> example: The [Conventional Commits `convention`][ccomits]:
 
 ```
 ├── conventional-commits
