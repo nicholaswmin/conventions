@@ -2,7 +2,7 @@
 
 > WIP  
 > Create repositories with pluggable `conventions`   
-> End goals is to match [scorecard][scorecoard] checks in a plug/play manner.
+> End goals is to match [scorecard][scorecard] checks in a plug/play manner.
 
 * [Overview](#overview)
   * [A `convention`](#a-convention)
