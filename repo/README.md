@@ -8,6 +8,7 @@
 - [Example](#example)
 - [Test](#test)
 - [Authors](#authors)
+- [License](#license)
 
 ## Install 
 
@@ -16,6 +17,8 @@ npm i @<<author>>/<<name>>
 ```
 
 ## Example
+
+> Basic 
 
 ```js
 import { greet } from '@<<author>>/<<name>>'
@@ -45,13 +48,14 @@ console.log(greeting)
 
 ## Tests
 
-> unit:
+> unit tests
 
 ```bash
 node --run test
 ```
 
-> **note**: certain [coverage thresholds][ccovt] must be met.
+> **note**: certain [coverage thresholds][ccovt] must be met otherwise these 
+> tests will fail
 
 ## Contributing
 
@@ -61,7 +65,9 @@ Read the [Contributions Guide][cnt-guide].
 
 [@<<author>>][author-url]  
 
-Licensed under: [<<license>>][license]  
+## License
+
+The [<<license>> License][license]  
 
 ### Footnotes 
 
