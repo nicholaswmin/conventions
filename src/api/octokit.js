@@ -28,7 +28,7 @@ const createOctokitRest = async () => (new RetryOctokit({
   request: { retries: 1, retryAfter: 1 }
 })).rest
 
-const handleAPIError = async err => {
+const handleApiError = async err => {
   if (!err.status)
     return err
   
@@ -96,4 +96,4 @@ const getPackageName = async () => {
 }
 
 
-export { createOctokitRest, handleAPIError }
+export { createOctokitRest, handleApiError }

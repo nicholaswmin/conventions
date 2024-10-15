@@ -3,7 +3,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import { Convention, File } from '../classes/index.js'
 
 class FSConventions {
-  constructor({ dir }) {
+  constructor(dir) {
     this.dir = dir
   }
   

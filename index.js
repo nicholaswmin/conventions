@@ -1,11 +1,12 @@
 import { join } from 'node:path'
 import { Token } from './src/conventions/classes/index.js'
 import { FSConventions } from './src/conventions/fs/index.js'
-import { createOctokitRest, handleAPIError } from './src/octokit/index.js'
-import { createApi } from './src/api/index.js'
+import { createApi, handleApiError } from './src/api/index.js'
 
-const fsc = new FSConventions({
-  dir: join(import.meta.dirname, './conventions')
+const fsc = new FSConventions(join(import.meta.dirname, './conventions'))
+const api = await createApi(join(import.meta.dirname, './extensions'), { 
+  name: 'sample-repo',
+  author: 'nicholaswmin'
 })
 
 const conventions = await fsc.create()
@@ -18,13 +19,6 @@ conventions.forEach(convention => convention.replacePlaceholders([
 console.log(conventions[0].files[8].content.replaced)
 
 /*
-const api = await createApi(await createOctokitRest(), { 
-  extDir: join(import.meta.dirname, './extensions')
-}, { 
-  name: 'sample-repo',
-  author: 'nicholaswmin'
-})
-
 try {
   const results = {
     ...await api.repos.createOrOverwrite({ 
@@ -57,7 +51,7 @@ try {
       console.log(key, value.status)
   })
 } catch (err) {
-  await handleAPIError(err)
+  await handleApiError(err)
 
   throw err
 }

@@ -7,8 +7,8 @@ class Api {
     this.repo = new Repo({ name, author })
   }
   
-  async init({ extDir }) {
-    await this.#loadExtensions(extDir)
+  async init(dir) {
+    await this.#loadExtensions(dir)
 
     // @TODO
     // - get repo author (not always user) and: 
@@ -20,8 +20,8 @@ class Api {
     return this
   }
   
-  async #loadExtensions(extDir) {
-    ;(await loadDirModules(extDir))
+  async #loadExtensions(dir) {
+    ;(await loadDirModules(dir))
       .forEach(this.#registerExtension, this)
     
     return this
