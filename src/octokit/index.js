@@ -3,78 +3,74 @@ import { execFile as execFileCB } from 'node:child_process'
 import { promisify } from 'node:util'
 import { Octokit } from '@octokit/rest'
 
+const CONFIG = {
+  TOKEN: {
+    URL: 'https://github.com/settings/tokens/new',
+    NAME: 'GITHUB_TOKEN',
+    SCOPES: ['repo', 'workflow', 'write:packages', 'delete_repo'],
+    INSTRUCTIONS: [
+      'Opened a "Create Token" page:',
+      '- Select expiration, click "Generate Token" & copy token to clipboard',
+      `- Run: sudo nano /etc/environment`,
+      `- Add: export GITHUB_TOKEN=<replace-with-token>`,
+      `- Save, then run: source /etc/environment`
+    ]
+  }
+}
+
 const execFile = promisify(execFileCB)
 
-const config = {
-  token: {
-    url: 'https://github.com/settings/tokens/new',
-    scopes: ['repo', 'workflow', 'write:packages', 'delete_repo'],
-    name: 'GITHUB_TOKEN'
-  },
-
-  editEnvCmd: 'sudo nano /etc/environment',
-  srcEnvCmd: 'source /etc/environment'
-}
-
-const getOctokitRest = async () => {
-  return (new Octokit({ auth: await getToken() })).rest
-}
+const createOctokitRest = async () => (new Octokit({ 
+  auth: await getToken() 
+})).rest
 
 const handleAPIError = async err => {
   if (!err.status)
-    return null
-  
-  if  (err.status === 401)
-    await refreshToken() 
+    return err
   
   const { status, response } = err
+  const { data } = response
 
-  console.error('HTTP Status:', status, response.data.message)
+  if  (status === 401)
+    await refreshToken() 
+
+  console.error('HTTP Status:', status, data?.message)
   
-  if (response.data.errors)
-    response.data.errors.forEach(error => console.log('\n', error))
+  if (data?.errors)
+    data.errors.forEach(error => console.log(error))
   
   process.exit(1)
 }
 
 const getToken = async () => {
-  const token = process.env[config.token.name]
+  const token = process.env[CONFIG.TOKEN.NAME]
 
-  if (!token) {
-    console.warn(`Missing ${config.token.name} token`)
+  if (token)
+    return token
+  
+  console.warn(`Missing ${CONFIG.TOKEN.NAME} token`)
 
-    await newTokenPage()
-    
-    process.exit(1)
-  }
+  await newTokenPage()
 
-  return token
+  process.exit(1)
 }
 
 const refreshToken = async () => {
-  console.warn(`Expired ${config.token.name} token, must be updated`)
+  console.warn(`Expired ${CONFIG.TOKEN.NAME} token, must be updated`)
 
   return await newTokenPage()
 }
 
 const newTokenPage = async () => {
-  ;[
-    'Opened a "Create Token" page:',
-    '- Select expiration, click "Generate Token" & copy token to clipboard',
-    `- Run: ${config.editEnvCmd.trim()}`,
-    `- Add: export ${config.token.name.trim()}=<replace-with-token>`,
-    `- Save, then run: ${config.srcEnvCmd.trim()}`
-  ].forEach(line => console.log(line))
-
-  const url = `${config.token.url}?${qs.stringify({ 
+  const out = await execFile('open', [ `${CONFIG.TOKEN.URL}?${qs.stringify({ 
     description: `for: ${await getPackageName()}`, 
-    scopes: config.token.scopes.map(scope => scope.trim()).join(',') 
-  })}`
-
-  const out = await execFile('open', [ url ])
+    scopes: CONFIG.TOKEN.SCOPES.map(scope => scope.trim()).join(',') 
+  })}` ])
   
   if (out.stderr.trim())
     throw Error(out.stderr.trim())
+  
+  CONFIG.TOKEN.INSTRUCTIONS.forEach(line => console.log(line))
 }
 
 const getPackageName = async () => {
@@ -96,4 +92,4 @@ const getPackageName = async () => {
 }
 
 
-export { getOctokitRest, handleAPIError }
+export { createOctokitRest, handleAPIError }

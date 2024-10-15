@@ -26,7 +26,7 @@ Run: `node --run create`
 
 ## todo
 
-- [ ] Fix hardcoded `auth` token in `octokit.js`
+- [x] Fix hardcoded `auth` token in `octokit.js`
 - [ ] Add tests
 - [ ] Reimplement `octokit` retry
 - [x] Supply `repo` externally

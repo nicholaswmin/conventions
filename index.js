@@ -1,13 +1,10 @@
 import { join } from 'node:path'
 import { createApi } from './src/api/index.js'
 import { FsRepo } from './src/fs-repo/index.js'
-import { 
-  getOctokitRest, 
-  handleAPIError 
-} from './src/octokit/index.js'
+import { createOctokitRest, handleAPIError } from './src/octokit/index.js'
 
 const fsr = new FsRepo({ repoDir: join(import.meta.dirname, './repo') })
-const api = await createApi(await getOctokitRest(), { 
+const api = await createApi(await createOctokitRest(), { 
   extDir: join(import.meta.dirname, './extensions')
 }, { 
   name: 'fsm-repo',
@@ -18,11 +15,11 @@ try {
   const results = {
     ...await api.repos.create({ 
       description: 'A state machine',
-      coverage: 100,
-      keywords: ["foo", "bar"],
+      coverage: 95,
+      keywords: ['foo'],
       node_version: '22.9', license: 'MIT' 
     }),
-    pages: api.repos.createPagesSite(),
+    pages: await api.repos.createPagesSite({ branch: 'main' }),
     documents: await api.repos.addDocuments([
       await fsr.getDocument('README.md'),
       await fsr.getDocument('package.json'),

@@ -47,10 +47,10 @@ export default {
     return results
   },
   
-  async createPagesSite() {
+  async createPagesSite({ branch }) {
     return await this.api.repos.createPagesSite({ 
       ...this.repo.path,
-      source: { branch: 'main' }
+      source: { branch }
     })
   },
   
