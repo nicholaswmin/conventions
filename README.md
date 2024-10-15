@@ -80,8 +80,8 @@ base
 adds:
 
 - a [workflow][actions] to publish to `npm` automatically
-- a [CONTRIBUTING.md][guides] section to explain this convention
 - a [ruleset][rulesets] to restrict tag versioning to semver formatting
+- a [CONTRIBUTING][guides] section to explain this convention
 
 ```
 semver
@@ -97,9 +97,9 @@ semver
 
 adds:
 
-- a [CONTRIBUTING.md][guides] section to explain this convention
 - a [ruleset][rulesets] to restrict commit messages to follow the 
   prescribed format
+- a [CONTRIBUTING][guides] section to explain this convention
 
 ```
 conventional-commmits
@@ -124,9 +124,10 @@ adds:
 adds:
 
 - a [workflow][actions] to run the unit tests on CI.
-- a [CONTRIBUTING.md][guides] section to explain this convention
 - a [ruleset][rulesets] to restrict merge of PRs only if unit-tests
   pass.
+- a [CONTRIBUTING][guides] section to explain this convention
+
 
 ```
 unit-testing
@@ -157,7 +158,7 @@ node --run new --conventions=./conventions
 which should produce this repository:
 
 ```
-repository
+my-repo
 ├── .github
 │   ├── workflows
 │   │   ├── npm-publish.yml
