@@ -11,7 +11,7 @@
 
 ## Publishing
 
-> create a [Github Release][gh-relea]:
+> create a [Github Release][gh-relea]
 
 ```bash
 gh release create 1.7.1

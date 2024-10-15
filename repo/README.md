@@ -71,7 +71,7 @@ node --run test
 gh release create 1.7.1
 ```
 
-which auto-publishes to [`npm`][npmjs]
+which also publishes to [`npm`][npmjs]
 
 ## Authors
 
