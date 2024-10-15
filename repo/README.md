@@ -6,7 +6,10 @@
 
 - [Install](#install)
 - [Example](#example)
-- [Test](#test)
+- [API Docs](#api)
+- [Contributors](#contributors)
+  - [Test](#test)
+  - [Publish](#publish)
 - [Authors](#authors)
 - [License](#license)
 
@@ -46,6 +49,10 @@ console.log(greeting)
 | `greeting` | `string` | A greeting  | 
 
 
+## Contributors
+
+Read the [Contributions Guide][cnt-guide].
+
 ## Tests
 
 > unit tests
@@ -54,12 +61,17 @@ console.log(greeting)
 node --run test
 ```
 
-> **note**: certain [coverage thresholds][ccovt] must be met otherwise these 
-> tests will fail
+> **note**: these tests require meeting the [coverage thresholds][ccovt]
 
-## Contributing
+## Publishing
 
-Read the [Contributions Guide][cnt-guide].
+> create a [gh release][gh_rl], i.e:
+
+```bash
+gh release create 1.7.1
+```
+
+which auto-publishes to [`npm`][npmjs]
 
 ## Authors
 
@@ -77,6 +89,9 @@ The [<<license>> License][license]
 [tests]: <<repo-url>>/actions/workflows/tests.yml
 [cocov]: https://img.shields.io/badge/coverage-<<sig-coverage>>%20<<coverage>>%25-blue
 [ccovt]: <<repo-url>>/blob/main/package.json#L11
+
+[npmjs]: https://www.npmjs.com/
+[gh_rl]: https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
 
 [cnt-guide]: ./.github/CONTRIBUTING.md
 [author-url]: <<author-url>>

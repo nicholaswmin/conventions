@@ -22,6 +22,7 @@ try {
       keywords: ["foo", "bar"],
       node_version: '22.9', license: 'MIT' 
     }),
+    pages: api.repos.createPagesSite(),
     documents: await api.repos.addDocuments([
       await fsr.getDocument('README.md'),
       await fsr.getDocument('package.json'),
@@ -40,7 +41,7 @@ try {
   
   Object.entries(results).forEach(([key, value]) => {
     if (Array.isArray(value))
-      value.forEach(({ url, status }) => console.log(key, url, status))
+      value.forEach(({ name, status }) => console.log(key, name, status))
     else 
       console.log(key, value.status)
   })

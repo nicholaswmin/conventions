@@ -47,15 +47,25 @@ export default {
     return results
   },
   
+  async createPagesSite() {
+    return await this.api.repos.createPagesSite({ 
+      ...this.repo.path,
+      source: { branch: 'main' }
+    })
+  },
+  
   async addDocuments(documents) {
     const results = []
 
     for (const document of documents) {
-      results.push(await this.api.repos.createOrUpdateFileContents({
-        ...this.repo.path,
-        ...document.toUploadable(), 
-        message: document.toCommitMessage()
-      }))
+      results.push({
+        name: document.filename,
+        ...await this.api.repos.createOrUpdateFileContents({
+          ...this.repo.path,
+          ...document.toUploadable(), 
+          message: document.toCommitMessage()
+        })
+      })
     } 
 
     return results
