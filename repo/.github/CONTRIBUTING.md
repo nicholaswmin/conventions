@@ -27,7 +27,7 @@ gh release list
 
 ## Branching
 
-> follow [Github Flow][ghb-flow], a very lightweight flow:
+> follows [Github Flow][ghb-flow], a lightweight model:
 
 1. Create a branch.  
    Use a concise name, i.e: `increase-test-timeout`.
