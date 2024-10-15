@@ -1,7 +1,8 @@
 # conventions
 
-> Create repositories with pluggable `conventions`
-> WIP
+> WIP  
+> Create repositories with pluggable `conventions`   
+> End goals is to match [scorecard][scorecoard] checks in a plug/play manner.
 
 * [Overview](#overview)
   * [A `convention`](#a-convention)
@@ -227,6 +228,7 @@ This repository now supports the following conventions/practices:
 
 The [MIT License][license]
 
+[scorecard]: https://github.com/ossf/scorecard/blob/main/docs/checks.md
 [convention]: https://en.wikipedia.org/wiki/Coding_conventions#
 [ccomits]: https://www.conventionalcommits.org/en/v1.0.0/
 [semver]: https://semver.org/
