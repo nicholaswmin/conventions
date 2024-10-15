@@ -11,7 +11,8 @@ const api = await createApi(join(import.meta.dirname, './extensions'), {
 })
 
 const list = await fsc.listAll()
-const mergedFiles = list.process({
+
+list.process({
   tokens: [
     new Token('name', 'greet'),
     new Token('author', 'johndoe'),
@@ -29,7 +30,8 @@ const mergedFiles = list.process({
 })
 
 console.log(list.toTree())
-await writeRepoToDir(join(import.meta.dirname, './tmp'), mergedFiles)
+
+await writeRepoToDir(join(import.meta.dirname, './tmp'), list.files)
 
 /*
 try {

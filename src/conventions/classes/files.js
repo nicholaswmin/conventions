@@ -1,6 +1,7 @@
 import { extname } from 'node:path'
 import { mergeMarkdown } from './utils/markdown/index.js'
 import { mergeJSON } from './utils/json/index.js'
+import { Token } from '../../classes/token.js'
 
 class FileGroup {
   constructor(file) {
@@ -41,9 +42,16 @@ class File {
       token.placeholder, token.value
     ), this.content)
     
-    // @TODO throw if remaining placeholders 
+    Token.getTags().forEach(this.throwIfContentIncludes.bind(this))
 
     return this
+  }
+  
+  throwIfContentIncludes(tag) {
+    if (!this.content.includes(tag))
+      return false
+
+    throw Error(`${this.name} still contains unreplaced tag: ${tag}`)
   }
   
   merge(content) {

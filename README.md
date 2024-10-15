@@ -214,6 +214,10 @@ This repository now supports the following conventions/practices:
 - [ ] Merge `Document`
   - [ ] Has issues (dupe sections), rethink it
   - [ ] Allow sectional updates (badges etc)
+      - Use 2 markers: 
+        - `<--content:top-->`. Anything above this ends up in the corresponding
+        top section of the `base` document, if such a marker exists.
+        - `<--content:end-->`. Anything else just ends up above this marker.
 - [x] Merge `JSON`
 - [ ] Github Repo Settings, how to deal with?
 - [ ] Generic files, what happens on conflict/merge, i.e: images? 

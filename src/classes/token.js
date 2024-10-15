@@ -1,13 +1,24 @@
 class Token { 
+  static openingTag = '<<'
+  static closingTag = '>>'
+
   constructor(key, value) {
     this.key = key.trim().split('_').join('-')
-    this.value = Array.isArray(value) ? value.map(v => `"${v}"`) : value
-    this.openingTag = '<<'
-    this.closingTag = '>>'
+    this.value = Array.isArray(value) 
+      ? value.map(Token.dblquote) 
+      : value.trim()
   }
   
   get placeholder() {
-    return `${this.openingTag}${this.key}${this.closingTag}`
+    return `${Token.openingTag}${this.key}${Token.closingTag}`
+  }
+  
+  static getTags() {
+    return [Token.openingTag, Token.closingTag]
+  }
+  
+  static dblquote(value) {
+    return `"${value.trim()}"`
   }
 }
 

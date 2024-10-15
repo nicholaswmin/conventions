@@ -5,46 +5,48 @@ import { filesToTree } from './utils/treeview/index.js'
 class ConventionsList {
   constructor(conventions) {
     this.conventions = conventions
-    this.result = []
+    this.files = null
   }
   
   toTree() {
-    return filesToTree(this.result)
+    return filesToTree(this.files)
   }
   
-  search(keyword) {
-    return this.result.filter(file => file.name.toLowerCase()
+  searchFile(keyword) {
+    return this.files.filter(file => file.name.toLowerCase()
       .includes(keyword.toLowerCase()))
   }
   
   process({ tokens }) {
-    this.#replacePlaceholders(tokens)
+    if (this.files) throw Error('already processed')
 
-    this.result = this.#mergeFileGroups()
+    this.conventions = this.#replacePlaceholders(tokens)
+    this.files = this.#mergeFileGroups(this.conventions)
     
-    return this.result
+    return this
   }
   
   #replacePlaceholders(tokens) {
-    return this.conventions.map(convention => convention.replacePlaceholders(tokens))
+    return this.conventions.map(conv => conv.replacePlaceholders(tokens))
   }
   
-  #mergeFileGroups() {
-    return this.#reduceToFileGroups().map(group => group.merge())
+  #mergeFileGroups(conventions) {
+    const mergeFilegroup = group => group.merge()
+
+    return this.#conventionsToFilegroups(conventions).map(mergeFilegroup)
   }
 
-  #reduceToFileGroups() {
-    const filesToFileGroupsByPath = (filegroups, file) => ({
-      ...filegroups, 
-      [file.path]: filegroups[file.path] ? 
-        filegroups[file.path].add(file) : 
-        new FileGroup(file)
+  #conventionsToFilegroups(conventions) {
+    const groupByPath = (groups, file) => ({
+      ...groups, [file.path]: groups[file.path] 
+        ? groups[file.path].add(file) 
+        : new FileGroup(file)
     })
     
-    const mergeToFileGroups = (acc, convention) => 
-      convention.files.reduce(filesToFileGroupsByPath, acc)
+    const mergeConventionGroups = (acc, convention) => 
+      convention.files.reduce(groupByPath, acc)
     
-    return Object.values(this.conventions.reduce(mergeToFileGroups, {}))
+    return Object.values(conventions.reduce(mergeConventionGroups, {}))
   }
 }
 
