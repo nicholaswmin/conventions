@@ -5,7 +5,6 @@
 
 ## Usage
 
-## 
 Run: `node --run create`
 
 - Creates a repo  
@@ -22,13 +21,14 @@ Run: `node --run create`
   - `Documents` can be tokenised   
     i.e: see "Author" section in `repo/README.md` for example.  
   - Keep same file directory structure as actual repo.
-- Check out rulesets in `repo/rulesets` for currently supported conventions  
+  
+> see rulesets in `repo/rulesets` for currently supported conventions  
 
 ## todo
 
 - [x] Fix hardcoded `auth` token in `octokit.js`
 - [ ] Add tests
-- [ ] Reimplement `octokit` retry
+- [x] Implement `octokit` retry
 - [x] Supply `repo` externally
   - fixed: uses `cwd` now.
 - [ ] Consider `Aspects`, grouped together forming an `Opinion`:   

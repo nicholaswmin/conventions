@@ -19,9 +19,12 @@ const CONFIG = {
 }
 
 const execFile = promisify(execFileCB)
+const RetryOctokit = Octokit.plugin(retry)
 
-const createOctokitRest = async () => (new Octokit({ 
-  auth: await getToken() 
+const createOctokitRest = async () => (new RetryOctokit({ 
+  auth: await getToken(),
+  retry: { doNotRetry: [401] },
+  request: { retries: 2, retryAfter: 1 }
 })).rest
 
 const handleAPIError = async err => {
