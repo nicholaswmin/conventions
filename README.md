@@ -77,9 +77,11 @@ base
 
 ### Example B: [Semver `convention`][semver]
 
-- Adds a [workflow][actions] to publish to `npm` automatically
-- Adds a [CONTRIBUTING.md][guides] section to explain this convention
-- Adds a [ruleset][rulesets] to restrict tag versioning to semver formatting
+adds:
+
+- a [workflow][actions] to publish to `npm` automatically
+- a [CONTRIBUTING.md][guides] section to explain this convention
+- a [ruleset][rulesets] to restrict tag versioning to semver formatting
 
 ```
 semver
@@ -93,8 +95,10 @@ semver
 
 ### Example C: [Conventional Commits `convention`][ccomits]
 
-- Adds a [CONTRIBUTING.md][guides] section to explain this convention
-- Adds a [ruleset][rulesets] to restrict commit messages to follow the 
+adds:
+
+- a [CONTRIBUTING.md][guides] section to explain this convention
+- a [ruleset][rulesets] to restrict commit messages to follow the 
   prescribed format
 
 ```
@@ -107,16 +111,21 @@ conventional-commmits
 
 ### Example D: [unit-testing `convention`][ccomits]
 
-- Adds a `test` folder and a `basic.test.js` unit-test.
-- Adds a `package.json` that adds a line:
+adds:
+
+- a `test` folder and a `basic.test.js` unit-test.
+- a `package.json` that adds a line:
 ```json
 "scripts": {
   "test": "node --test"
 }
 ```
-- Adds a [workflow][actions] to run the unit tests on CI.
-- Adds a [CONTRIBUTING.md][guides] section to explain this convention
-- Adds a [ruleset][rulesets] to restrict merge of PRs only if unit-tests
+
+adds:
+
+- a [workflow][actions] to run the unit tests on CI.
+- a [CONTRIBUTING.md][guides] section to explain this convention
+- a [ruleset][rulesets] to restrict merge of PRs only if unit-tests
   pass.
 
 ```
