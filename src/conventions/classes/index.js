@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import { FileGroup, File, JSON, Document, Ruleset } from './files.js'
+import { FileGroup, File, JSONF, Document, Ruleset } from './files.js'
 import { filesToTree } from './utils/treeview/index.js'
 
 class ConventionsList {
@@ -19,7 +19,7 @@ class ConventionsList {
   
   process({ tokens }) {
     this.#replacePlaceholders(tokens)
-    
+
     this.result = this.#mergeFileGroups()
     
     return this.result
@@ -50,7 +50,7 @@ class ConventionsList {
 
 class Convention {
   // order matters: more specific -> almost default
-  static types = [ Ruleset, Document, JSON, File ]
+  static types = [ Ruleset, Document, JSONF, File ]
 
   constructor({ name, parentPath }) {
     Object.defineProperties(this, {

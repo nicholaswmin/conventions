@@ -1,5 +1,6 @@
 import { extname } from 'node:path'
 import { mergeMarkdown } from './utils/markdown/index.js'
+import { mergeJSON } from './utils/json/index.js'
 
 class FileGroup {
   constructor(file) {
@@ -18,9 +19,6 @@ class FileGroup {
   merge() {
     const last = this.files.at(-1)
     const merged = this.files.reduce((content, file, i) => {
-      if (i > 0)
-        console.log('-', this.name, 'merged:', this.files.map(f => f.convention))
-
       return file.merge(content)
     }, this.files.at(0).content)
     
@@ -63,9 +61,25 @@ class Ruleset extends File {
   }
 }
 
-class JSON extends File { 
+class JSONF extends File { 
+  constructor({ name, path, convention }, content) {
+    super({ name, path, convention }, typeof content === 'object' 
+      ? JSON.stringify(content, null, 2) 
+      : content)
+  }
+
   static matches({ name, parentPath }) {
     return extname(name).includes('json')
+  }
+  
+  merge(content) {
+    return mergeJSON([this.#parse(content), this.#parse(this.content)])
+  }
+  
+  #parse(content) {
+    return typeof content === 'string' 
+      ? JSON.parse(content)
+      : content
   }
 }
 
@@ -92,4 +106,4 @@ class Document extends File {
 }
 
 
-export { FileGroup, File, Document, Ruleset, JSON }
+export { FileGroup, File, Document, Ruleset, JSONF }

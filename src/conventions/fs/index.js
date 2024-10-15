@@ -5,7 +5,7 @@ import { ConventionsList, Convention, File } from '../classes/index.js'
 const writeRepoToDir = async (dir, files) => {
   for (const file of files) {
     const path = join(dir, file.path)
-    
+
     await mkdir(dirname(path), { recursive: true })
     await writeFile(path, file.content) 
   }

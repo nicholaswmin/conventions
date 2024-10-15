@@ -211,7 +211,11 @@ This repository now supports the following conventions/practices:
 
 - [ ] Add tests
 - [ ] Merge `Document`
-- [ ] Merge `JSON`
+  - [ ] Has issues (dupe sections), rethink it
+  - [ ] Allow sectional updates (badges etc)
+- [x] Merge `JSON`
+- [ ] Github Repo Settings, how to deal with?
+- [ ] Generic files, what happens on conflict/merge, i.e: images? 
 - [ ] Use the `--conventions` params
 - [ ] Fix rulesets (waiting for Github support reply)
 
