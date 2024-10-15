@@ -1,9 +1,9 @@
 # Github API extensions
    
-> API extensions should be added in an `/extensions` folder in `root ./`; 
-they are automatically registered and made available under `api.<name>`.
+> API extensions should be added in this folder.  
+> They are automatically registered and made available under `api.<name>`.
 
-- **important:** Calling a Sibling method **must** use its namespace:  
+- **important:** Calling a sibling method **must** use it's namespace:   
   - Good: `this.foo.bar()` 
   - Bad: `this.bar()`
 - Github API methods are available under `this.api`:  
