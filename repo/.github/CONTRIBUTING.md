@@ -117,6 +117,8 @@ Should read & abide by the following guidelines
 [cc-specs]: https://www.conventionalcommits.org/en/v1.0.0/#specification
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt
 
+[ghcs-wsite]: https://docs.github.com/en/code-security
+[ghcs-quick]: https://docs.github.com/en/code-security/getting-started/quickstart-for-securing-your-repository
 [ossf-wsite]: https://openssf.org/
 [ossf-npm-g]: https://github.com/ossf/package-manager-best-practices/blob/f51988aee8a9a1ab0436bbba61c1e94d7270683a/published/npm.md#readme
 [ossf-score]: https://github.com/ossf/scorecard/blob/1bbae1ab91b1fbca1bf4c6e2307491d062a60cfb/README.md
