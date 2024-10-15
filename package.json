@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "a repository configurator",
   "type": "module",
-  "main": "index.js",
+  "exports": "./index.js",
   "scripts": {
     "test": "node --test",
-    "new": "node index.js"
+    "new": "node index.js --dirpaths"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "github-cli",
     "repository",
     "octokit",
-    "best-practises",
+    "best-practices",
     "security"
   ],
   "author": "@nicholaswmin",

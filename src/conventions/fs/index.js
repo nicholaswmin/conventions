@@ -1,6 +1,15 @@
-import { join } from 'node:path'
-import { readdir, readFile } from 'node:fs/promises'
+import { join, dirname } from 'node:path'
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import { ConventionsList, Convention, File } from '../classes/index.js'
+
+const writeRepoToDir = async (dir, files) => {
+  for (const file of files) {
+    const path = join(dir, file.path)
+    
+    await mkdir(dirname(path), { recursive: true })
+    await writeFile(path, file.content) 
+  }
+}
 
 class FSConventions {
   constructor(dir) {
@@ -49,4 +58,4 @@ class FSConventions {
   }
 }
 
-export { FSConventions }
+export { FSConventions, writeRepoToDir }

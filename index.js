@@ -1,7 +1,8 @@
 import { join } from 'node:path'
 import { Token } from './src/conventions/classes/index.js'
-import { FSConventions } from './src/conventions/fs/index.js'
+import { FSConventions, writeRepoToDir } from './src/conventions/fs/index.js'
 import { createApi, handleApiError } from './src/api/index.js'
+
 
 const fsc = new FSConventions(join(import.meta.dirname, './conventions'))
 const api = await createApi(join(import.meta.dirname, './extensions'), { 
@@ -10,8 +11,7 @@ const api = await createApi(join(import.meta.dirname, './extensions'), {
 })
 
 const list = await fsc.listAll()
-
-list.process({
+const mergedFiles = list.process({
   tokens: [
     new Token('name', 'greet'),
     new Token('author', 'johndoe'),
@@ -19,6 +19,7 @@ list.process({
     new Token('author_url', 'https://github.com/johndoe'),
     new Token('repo_url', 'https://github.com/johndoe/greet'),
     new Token('git_url', 'https://github.com/johndoe/greet.git'),
+    new Token('keywords', ['foo', 'bar']),
 
     new Token('coverage', '95'),
     new Token('sig_coverage', '>'),
@@ -28,7 +29,7 @@ list.process({
 })
 
 console.log(list.toTree())
-console.log(list.search('CONTR'))
+await writeRepoToDir(join(import.meta.dirname, './tmp'), mergedFiles)
 
 /*
 try {
