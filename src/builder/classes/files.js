@@ -1,6 +1,6 @@
 import { extname } from 'node:path'
-import { mergeMarkdown } from './utils/markdown/index.js'
-import { mergeJSON } from './utils/json/index.js'
+import { mergeMarkdown } from '../utils/markdown/index.js'
+import { mergeJSON } from '../utils/json/index.js'
 import { Token } from '../../classes/token.js'
 
 class FileGroup {

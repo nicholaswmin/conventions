@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import { filesToTree } from './utils/treeview/index.js'
+import { filesToTree } from '../utils/treeview/index.js'
 import {  FileGroup,  File, JSONFile,  Document, Ruleset } from './files.js'
 
 class ConventionsList {
