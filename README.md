@@ -1,9 +1,5 @@
 # conventions
 
-\`\`\`badge  
-foobar  
-\`\`\`
-
 > WIP  
 > Create repositories with pluggable `conventions`   
 > End goals is to match [scorecard][scorecard] checks in a plug/play manner.
