@@ -1,5 +1,9 @@
 # conventions
 
+\`\`\`badge  
+foobar  
+\`\`\`
+
 > WIP  
 > Create repositories with pluggable `conventions`   
 > End goals is to match [scorecard][scorecard] checks in a plug/play manner.
@@ -215,15 +219,15 @@ This repository now supports the following conventions/practices:
 Badges can be added by enclosing them as a codeblock with `lang:badge`.     
 Badges get repositioned to the top of the page.
 
-```badge
-<badge-goes-here>
-```
+\`\`\`badge   
+badge-goes-here  
+\`\`\`
 
 example:
 
-```badge
-![Static Badge][badgeurl]
-```
+\`\`\`badge    
+![Static Badge][badgeurl]    
+\`\`\`  
 
 don't forget to add the link somehere in the doc.
 
