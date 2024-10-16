@@ -9,6 +9,13 @@
 * @param {...object} objects - Objects to merge
 * @returns {object} New object with merged key/values
 */
+
+import { labels } from '../../../view/index.js'
+
+const isPrimitive = val => (
+  val === null || typeof val === 'object' || typeof val === 'function'
+)
+
 function mergeJSON(objects = []) {
   const isObject = obj => obj && typeof obj === 'object';
   
@@ -17,6 +24,9 @@ function mergeJSON(objects = []) {
       const pVal = prev[key]
       const oVal = obj[key]
       
+      if (isPrimitive(pVal) && pVal)
+        console.warn(labels.warn(`overwriting JSON key: "${key}"`))
+
       if (Array.isArray(pVal) && Array.isArray(oVal)) {
         prev[key] = pVal.concat(...oVal)
       }

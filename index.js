@@ -1,36 +1,16 @@
 import { join } from 'node:path'
-import { Token } from './src/builder/classes/index.js'
-import { FSConventions, writeRepoToDir } from './src/builder/fs/index.js'
+import { createRepo } from './src/builder/index.js'
 import { createApi, handleApiError } from './src/gh-api/index.js'
 
-const fsc = new FSConventions(join(import.meta.dirname, './conventions'))
 const api = await createApi(join(import.meta.dirname, './extensions'), { 
   name: 'sample-repo',
   author: 'nicholaswmin'
 })
 
-const list = await fsc.listAll()
-
-list.process({
-  tokens: [
-    new Token('name', 'greet'),
-    new Token('author', 'johndoe'),
-    new Token('description', 'a sample repo'),
-    new Token('author_url', 'https://github.com/johndoe'),
-    new Token('repo_url', 'https://github.com/johndoe/greet'),
-    new Token('git_url', 'https://github.com/johndoe/greet.git'),
-    new Token('keywords', ['foo', 'bar']),
-
-    new Token('coverage', '95'),
-    new Token('sig_coverage', '>'),
-    new Token('node_version', '22'),
-    new Token('license', 'MIT')
-  ]
+const repo = await createRepo({
+  dir: join(import.meta.dirname, './conventions'),
+  tempDir: join(import.meta.dirname, './tmp')
 })
-
-console.log(list.toTreeview())
-
-await writeRepoToDir(join(import.meta.dirname, './tmp'), list.files)
 
 /*
 // The API needs

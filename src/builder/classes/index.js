@@ -1,25 +1,30 @@
 import { join } from 'node:path'
-import { filesToTree } from '../utils/treeview/index.js'
-import {  FileGroup,  File, JSONFile,  Document, Ruleset } from './files.js'
 
-class ConventionsList {
+import { File } from './file/index.js'
+import { Ruleset } from './ruleset/index.js'
+import { JSONFile } from './json-file/index.js'
+import { Document } from './document/index.js'
+
+import { FileGroup } from './file-group/index.js'
+import { Token } from './token/index.js'
+
+class ConventionsRepo {
   constructor(conventions) {
     this.conventions = conventions
     this.files = null
   }
   
-  toTreeview() {
-    return filesToTree(this.files)
-  }
-  
-  process({ tokens }) {
+  merge() {
     if (this.files) 
       throw Error('already processed')
 
-    this.conventions = this.#replacePlaceholders(tokens)
     this.files = this.#mergeFileGroups(this.conventions)
 
     return this
+  }
+  
+  replace({ tokens }) {
+    this.conventions = this.#replacePlaceholders(tokens)
   }
   
   #replacePlaceholders(tokens) {
@@ -98,17 +103,4 @@ class Convention {
   }
 }
 
-class Token { 
-  constructor(key, value) {
-    this.key = key.trim().split('_').join('-')
-    this.value = Array.isArray(value) ? value.map(v => `"${v}"`) : value
-    this.openingTag = '<<'
-    this.closingTag = '>>'
-  }
-  
-  get placeholder() {
-    return `${this.openingTag}${this.key}${this.closingTag}`
-  }
-}
-
-export { ConventionsList, Convention, File, Token }
+export { ConventionsRepo, Convention, Token }

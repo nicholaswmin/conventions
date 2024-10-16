@@ -1,5 +1,5 @@
 import { loadDirModules } from './ext-loader.js'
-import { Repo } from '../classes/repo.js'
+import { Repo } from './repo.js'
 
 class Api {
   constructor(api, { name, author }) {

@@ -28,7 +28,6 @@
   "dependencies": {
     "@octokit/plugin-retry": "^7.1.2",
     "@octokit/rest": "^21.0.2",
-    "file-paths-to-tree": "^4.0.0",
     "marked": "^14.1.3"
   }
 }

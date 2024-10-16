@@ -1,6 +1,6 @@
 import { join, dirname } from 'node:path'
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
-import { ConventionsList, Convention, File } from '../classes/index.js'
+import { ConventionsRepo, Convention } from '../classes/index.js'
 
 const writeRepoToDir = async (dir, files) => {
   for (const file of files) {
@@ -16,7 +16,7 @@ class FSConventions {
     this.dir = dir
   }
   
-  async listAll() {
+  async create() {
     const conventions = await this.#getAscendingConventions(this.dir)
 
     for (const convention of conventions) {
@@ -28,7 +28,7 @@ class FSConventions {
       }
     }
 
-    return new ConventionsList(conventions)
+    return new ConventionsRepo(conventions)
   }
   
   async #getAscendingConventions(path) {
