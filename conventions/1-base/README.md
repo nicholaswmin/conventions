@@ -1,4 +1,6 @@
-[![tests][testb]][tests] [![ccovt][cocov]](#tests)   
+```badge
+![Node Current][node-lts]
+```
 
 # <<name>>
 
@@ -6,10 +8,6 @@
 
 - [Install](#install)
 - [Example](#example)
-- [API Docs](#api)
-- [Contributors](#contributors)
-  - [Test](#test)
-  - [Publish](#publish)
 - [Authors](#authors)
 - [License](#license)
 
@@ -47,27 +45,8 @@ console.log(greeting)
 | `greeting` | `string` | A greeting  | 
 
 
-## Contributors
+<!--content:end-->
 
-Read the [Contributions Guide][cnt-guide].
-
-## Tests
-
-```bash
-node --run test
-```
-
-> **note**: these tests require meeting the [coverage thresholds][ccovt]
-
-## Publishing
-
-Create a [gh release][gh_rl], i.e:
-
-```bash
-gh release create 1.7.1
-```
-
-> **note**: publishes to [npm][npmjs] with [provenance][pr_st]
 
 ## Authors
 
@@ -81,15 +60,6 @@ The [<<license>> License][license]
 
 [^1]: Hello world, this is a footnote.
 
-[testb]: <<repo-url>>/actions/workflows/tests.yml/badge.svg
-[tests]: <<repo-url>>/actions/workflows/tests.yml
-[cocov]: https://img.shields.io/badge/coverage-<<sig-coverage>>%20<<coverage>>%25-blue
-[ccovt]: <<repo-url>>/blob/main/package.json#L11
-
-[npmjs]: https://www.npmjs.com/
-[gh_rl]: https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
-[pr_st]: https://docs.npmjs.com/generating-provenance-statements
-[cnt-guide]: ./.github/CONTRIBUTING.md
-
+[node-lts]: https://img.shields.io/node/v-lts/%40nicholaswmin%2Ffsm
 [author-url]: <<author-url>>
 [license]: ./LICENSE

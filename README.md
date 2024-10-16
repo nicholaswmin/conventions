@@ -207,6 +207,27 @@ This repository now supports the following conventions/practices:
 - The base convention is `base`
 - Conventions can be ordered by prefixing their filename with a number:
   - i.e: `1-conventional-commits`, `2-github-flow`, etc...
+  
+## Documents:
+
+### Badges
+
+Badges can be added by enclosing them as a codeblock with `lang:badge`.     
+Badges get repositioned to the top of the page.
+
+```badge
+<badge-goes-here>
+```
+
+example:
+
+```badge
+![Static Badge][badgeurl]
+```
+
+don't forget to add the link somehere in the doc.
+
+[badgeurl]: https://img.shields.io/badge/foo-bar?label=foobar)
 
 ## Todo
 

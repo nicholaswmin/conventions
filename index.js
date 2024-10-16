@@ -29,11 +29,14 @@ list.process({
   ]
 })
 
-console.log(list.toTree())
+console.log(list.toTreeview())
 
 await writeRepoToDir(join(import.meta.dirname, './tmp'), list.files)
 
 /*
+// The API needs
+// - Uploadable Documents
+// - Rulesets
 try {
   const results = {
     ...await api.repos.createOrOverwrite({ 

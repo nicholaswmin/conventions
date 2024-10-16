@@ -40,7 +40,7 @@ gh release list
 - [Concise Guide for Evaluating Open Source Software][ossf-dep-g]
 - [Build Provenance][ossf-build]
 
-<!---content-end-->
+<!--content:end-->
 
 ## Authors
 

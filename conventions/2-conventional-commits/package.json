@@ -1,6 +1,5 @@
 {
   "scripts": {
-    "test:foo": "node --foo",
-    "test:bar": "node --bar"
+    "test:foo": "foo"
   }
 }

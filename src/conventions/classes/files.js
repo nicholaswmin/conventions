@@ -18,12 +18,12 @@ class FileGroup {
   }
   
   merge() {
-    const last = this.files.at(-1)
-    const merged = this.files.reduce((content, file, i) => {
-      return file.merge(content)
-    }, this.files.at(0).content)
-    
-    return new last.constructor(last, merged)
+    const files = this.files.filter(file => file instanceof MergeableFile)
+    const base  = files.at(0) || this.files.at(0)
+    const merged = files.slice(1)
+      .reduce((acc, file) => base.merge(file.content), '')
+
+    return new base.constructor(base, merged)
   }
 }
 
@@ -54,14 +54,11 @@ class File {
     throw Error(`${this.name} still contains unreplaced tag: ${tag}`)
   }
   
-  merge(content) {
-    return content  
-  }
-  
   static matches({ name, parentPath }) {
     return true
   }
 }
+
 
 class Ruleset extends File { 
   static matches({ name, parentPath }) {
@@ -69,7 +66,30 @@ class Ruleset extends File {
   }
 }
 
-class JSONF extends File { 
+class MergeableFile extends File {
+  merge(content) {
+    return content  
+  }
+}
+
+class UploadableFile extends MergeableFile {
+  toUploadable() {
+    return {
+      path: this.path,
+      content: Buffer.from(this.content).toString('base64')
+    }
+  }
+  
+  merge(content) {
+    return content  
+  }
+  
+  toCommitMessage() {
+    return `build: add ${this.name}`
+  }
+}
+
+class JSONFile extends UploadableFile { 
   constructor({ name, path, convention }, content) {
     super({ name, path, convention }, typeof content === 'object' 
       ? JSON.stringify(content, null, 2) 
@@ -81,7 +101,9 @@ class JSONF extends File {
   }
   
   merge(content) {
-    return mergeJSON([this.#parse(content), this.#parse(this.content)])
+    return content 
+      ? mergeJSON([this.#parse(content), this.#parse(this.content)])
+      : content
   }
   
   #parse(content) {
@@ -91,21 +113,13 @@ class JSONF extends File {
   }
 }
 
-class Document extends File {  
+class Document extends UploadableFile {  
   static matches({ name, parentPath }) {
     return extname(name).includes('md')
   }
   
   merge(content) {
-    return mergeMarkdown([content, this.content])
-  }
-
-  toUploadable() {
-    return {
-      path: this.path,
-      content: Buffer.from(this.content)
-        .toString('base64')
-    }
+    return mergeMarkdown([this.content, content])
   }
   
   toCommitMessage() {
@@ -114,4 +128,4 @@ class Document extends File {
 }
 
 
-export { FileGroup, File, Document, Ruleset, JSONF }
+export { FileGroup, File, MergeableFile, Document, Ruleset, JSONFile }

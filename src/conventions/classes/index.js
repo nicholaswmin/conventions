@@ -1,6 +1,6 @@
 import { join } from 'node:path'
-import { FileGroup, File, JSONF, Document, Ruleset } from './files.js'
 import { filesToTree } from './utils/treeview/index.js'
+import {  FileGroup,  File, JSONFile,  Document, Ruleset } from './files.js'
 
 class ConventionsList {
   constructor(conventions) {
@@ -8,21 +8,17 @@ class ConventionsList {
     this.files = null
   }
   
-  toTree() {
+  toTreeview() {
     return filesToTree(this.files)
   }
   
-  searchFile(keyword) {
-    return this.files.filter(file => file.name.toLowerCase()
-      .includes(keyword.toLowerCase()))
-  }
-  
   process({ tokens }) {
-    if (this.files) throw Error('already processed')
+    if (this.files) 
+      throw Error('already processed')
 
     this.conventions = this.#replacePlaceholders(tokens)
     this.files = this.#mergeFileGroups(this.conventions)
-    
+
     return this
   }
   
@@ -51,8 +47,8 @@ class ConventionsList {
 }
 
 class Convention {
-  // order matters: more specific -> almost default
-  static types = [ Ruleset, Document, JSONF, File ]
+  // order matters: more specific -> default.
+  static types = [ Ruleset, Document, JSONFile, File ]
 
   constructor({ name, parentPath }) {
     Object.defineProperties(this, {

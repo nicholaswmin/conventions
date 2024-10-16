@@ -1,6 +1,6 @@
 ## Commit messages
  
-> follow [Conventional Commits][cc-about] which dovetails with Semver and 
+> follow [Conventional Commits][ccom] which dovetails with Semver and 
 > follows this format:
 
 ```bash
@@ -45,3 +45,6 @@ git commit -m"feat!: mark 'name' as required parameter"
 # "!" must come before ":", not after.
 git commit -m"feat:! mark 'name' as required parameter"
 ```
+
+[ccom]: https://www.conventionalcommits.org/en/v1.0.0/
+[cc-specs]: https://www.conventionalcommits.org/en/v1.0.0/#specification

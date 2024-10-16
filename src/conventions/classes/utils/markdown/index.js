@@ -6,38 +6,40 @@ import { marked } from 'marked'
 // - TOC?
 // - missing marker?
 // - add identifier comments start/end for pruning?
-const mergeMarkdown = (markdowns, marker = "content-end") => {
-  const toMDTokens = markdown => marked.lexer(markdown)
 
-  const space  = [{ type: 'space', raw: '\n' }]
-  const tokens = markdowns.map(toMDTokens)
+const mergeMarkdown = markdowns => {
+  const space = [{ type: 'space', raw: ' '  }]
+  const enter = [{ type: 'space', raw: '\n\n' }]
 
-  const merge  = (acc, chunk) => {
-    const index = acc.findIndex(token => token.raw.includes(marker))
+  const toTokens = markdown => marked.lexer(markdown.trim())
 
-    acc.splice(index, 0, ...chunk)
+  const toTokenLinks = (acc, doc) => acc.concat(doc.links)
+  const toMDownLinks = ([key, value]) => `[${key}]: ${value.href}\n`
+  const dedupeLinks = (acc, links) => ({ ...acc, ...links })
+  
+  const hasMarker = token => token.raw.includes('content:end')
+  const spaceout   = (acc, entry) => acc.concat(entry).concat(space)
+
+  const sanitise = entry => Object.assign(entry, { raw: entry.text })
+  const toBadges = (acc, doc) => [...acc, doc.filter(isBadge).map(sanitise)]
+  const notBadge = entry => entry.lang !== 'badge'
+  const isBadge  = entry => entry.lang === 'badge'
+
+  const parse = (acc, part, i) => acc += part.raw
+  const merge = (acc, doc) => {
+    acc.splice(acc.findIndex(hasMarker), 0, ...(enter).concat(doc))
 
     return acc
   }
 
-  const renderLinks  = (acc, [link, { href }]) => acc += `[${link}]: ${href}\n`
-  const renderTokens = (acc, part) => acc += part.raw
-  const collectLinks = (acc, chunk) => {
-    const res = Object.assign({}, acc, chunk.links)
-    delete chunk.links
-    
-    return res
-  }
-  
+  const docums  = markdowns.map(toTokens)
+  const badges  = docums.reduce(toBadges, []).reduce(spaceout, []).concat(enter)
+  const merged  = docums.reduce(merge, []).filter(notBadge)
+  const links   = Object.entries(docums.reduce(toTokenLinks, [])
+    .reduce(dedupeLinks, {})).map(toMDownLinks).join('')
 
-  const content = {
-    main: Object.values(tokens).reduce(merge, [])
-      .reduce(renderTokens, ''),
-    links: Object.entries(Object.values(tokens).reduce(collectLinks, {}))
-      .reduce(renderLinks, '')
-  }
-  
-  return `${content.main}\n${content.links}`
+  return (badges.concat(merged).reduce(parse, '') + '\n\n' + links)
+    .replace(/(\r\n|\r|\n){2,}/g, '$1\n').trim()
 }
 
 export { mergeMarkdown }
