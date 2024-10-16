@@ -233,18 +233,17 @@ don't forget to add the link somehere in the doc.
 
 - [ ] Add tests
 - [ ] Merge `Document`
-  - [ ] Has issues (dupe sections), rethink it
-  - [ ] Allow sectional updates (badges etc)
-      - Use 2 markers: 
-        - `<--content:top-->`. Anything above this ends up in the corresponding
-        top section of the `base` document, if such a marker exists.
-        - `<--content:end-->`. Anything else just ends up above this marker.
+  - [x] Has issues (dupe sections), rethink it
+  - [x] Allow sectional updates (badges etc)
 - [x] Merge `JSON`
 - [ ] Github Repo Settings, how to deal with?
 - [ ] Generic files, what happens on conflict/merge, i.e: images? 
-- [ ] Use the `--conventions` params
+- [ ] Use the `--dir` params to point to a `conventions` folder.
 - [ ] Fix rulesets (waiting for Github support reply)
 - [ ] Test no reflink links (inline)  
+- [ ] Fix TOC markdown updates (delete it and recreate it?)
+- [ ] `Tokens` should be `extended` into appropriate types:
+  - i.e: `NpmVersionToken extends Token` which validates an npm version string
 
 ##  Test
 
