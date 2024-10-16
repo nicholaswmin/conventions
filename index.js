@@ -1,7 +1,7 @@
 import { join } from 'node:path'
 import { Token } from './src/builder/classes/index.js'
 import { FSConventions, writeRepoToDir } from './src/builder/fs/index.js'
-import { createApi, handleApiError } from './src/api/index.js'
+import { createApi, handleApiError } from './src/gh-api/index.js'
 
 
 const fsc = new FSConventions(join(import.meta.dirname, './conventions'))
