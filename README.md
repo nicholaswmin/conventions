@@ -244,6 +244,7 @@ don't forget to add the link somehere in the doc.
 - [ ] Generic files, what happens on conflict/merge, i.e: images? 
 - [ ] Use the `--conventions` params
 - [ ] Fix rulesets (waiting for Github support reply)
+- [ ] Test no reflink links (inline)  
 
 ## Authors
 

@@ -34,6 +34,14 @@ test('#mergeMarkdown([markdown A, markdown B)', async t => {
         t.assert.strictEqual(testBadges, 2)
       })
       
+      await t.test('badges should have 1 space between them', t => {
+        const hasOneSpacing = line.includes(
+          '[![ccovt][cocov]](#tests) [![ccovt][cocov]](#tests)'
+        )
+        
+        t.assert.ok(hasOneSpacing, 'badges might not have 1 spacing')
+      })
+      
       await t.test('badges dont appear anywhere else', t => {
         const lineHasBadge = line => line.includes('[![ccovt][cocov]](#tests)')
         const occurences = lines.slice(1).filter(lineHasBadge).length

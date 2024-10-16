@@ -19,11 +19,15 @@ class FileGroup {
   
   merge() {
     const files = this.files.filter(file => file instanceof MergeableFile)
-    const base  = files.at(0) || this.files.at(0)
-    const merged = files.slice(1)
-      .reduce((acc, file) => base.merge(file.content), '')
+    
+    if (!files.length)
+      return this.files.at(0)
 
-    return new base.constructor(base, merged)
+    const base  = files.at(0)
+    const acc   = files.slice(1).reduce((acc, file) => 
+      base.merge(acc, file.content), base.content)
+    
+    return new base.constructor(base, acc)
   }
 }
 
@@ -67,8 +71,9 @@ class Ruleset extends File {
 }
 
 class MergeableFile extends File {
-  merge(content) {
-    return content  
+  // must be implemented by subclass
+  merge(acc, content) {
+    console.warn('not implemented')
   }
 }
 
@@ -78,10 +83,6 @@ class UploadableFile extends MergeableFile {
       path: this.path,
       content: Buffer.from(this.content).toString('base64')
     }
-  }
-  
-  merge(content) {
-    return content  
   }
   
   toCommitMessage() {
@@ -100,10 +101,8 @@ class JSONFile extends UploadableFile {
     return extname(name).includes('json')
   }
   
-  merge(content) {
-    return content 
-      ? mergeJSON([this.#parse(content), this.#parse(this.content)])
-      : content
+  merge(acc, content) {
+    return mergeJSON([this.#parse(acc), this.#parse(content)])
   }
   
   #parse(content) {
@@ -118,8 +117,8 @@ class Document extends UploadableFile {
     return extname(name).includes('md')
   }
   
-  merge(content) {
-    return mergeMarkdown([this.content, content])
+  merge(acc, content) {
+    return mergeMarkdown([acc, content])
   }
   
   toCommitMessage() {

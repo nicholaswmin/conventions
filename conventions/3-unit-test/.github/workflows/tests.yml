@@ -8,8 +8,10 @@ on:
 
 jobs:
   test:
+    name: tests
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
+
     env:
       NODE_ENV: test
     strategy:
@@ -21,7 +23,9 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    # CI tests should install unpinned dependencies
-    #  - from: OSSF: Package Manager Best Practices: npm
-    - run: npm install --no-package-lock
+
+    # From OSSF: Package Manager Best Practices  
+    # Read: https://tinyurl.com/bdf3yuvv
+    - run: npm i --no-package-lock
+
     - run: node --run test

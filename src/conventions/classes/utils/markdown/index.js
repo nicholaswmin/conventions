@@ -1,7 +1,8 @@
 import { marked } from 'marked'
 
 // @TODO
-// - throw on link conflict
+// - throw on link conflict (same name, diff. url)
+// - throw on invalid link (same name, diff. url)
 // - throw on header conflict
 // - TOC?
 // - missing marker?
@@ -21,7 +22,8 @@ const mergeMarkdown = markdowns => {
   const spaceout   = (acc, entry) => acc.concat(entry).concat(space)
 
   const sanitise = entry => Object.assign(entry, { raw: entry.text })
-  const toBadges = (acc, doc) => [...acc, doc.filter(isBadge).map(sanitise)]
+  const toBadges = (acc, doc) => [...acc, doc.filter(isBadge)
+    .map(sanitise).reduce(spaceout, [])]
   const notBadge = entry => entry.lang !== 'badge'
   const isBadge  = entry => entry.lang === 'badge'
 

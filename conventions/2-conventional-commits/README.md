@@ -1,5 +1,6 @@
-## Commit messages
- 
-This repo follows [Conventional Commits][ccom]
+```badge
+[![Conventional Commits][cc-badge]][cc-badge-click]
+```
 
-[ccom]: https://www.conventionalcommits.org/en/v1.0.0/
+[cc-badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white
+[cc-badge-click]: https://conventionalcommits.org

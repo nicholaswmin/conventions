@@ -1,3 +1,11 @@
+```badge
+[![wflow-test][badge-test]][wflow-test]
+```
+
+```badge
+[![wflow-test][badge-ccov]](#tests)
+```
+
 ## Tests
 
 > run unit tests:
@@ -6,10 +14,9 @@
 npm --run test
 ```
 
-```badge
-[![ccovt][cocov]](#tests)
-```
+>  tests only pass if certain coverage thresholds are met  
 
-[tests]: https://github.com/nicholaswmin/fsm/actions/workflows/tests:unit.yml
-[cocov]: https://img.shields.io/badge/coverage-%3E%2095%25-blue
-[ccovt]: https://github.com/nicholaswmin/fsm/blob/486a5f53d713a32fed01ee9d903bb66f90f9867a/package.json#L11
+
+[badge-test]: <<repo-url>>/actions/workflows/tests.yml/badge.svg
+[badge-ccov]: https://img.shields.io/badge/coverage-%20<<coverage>>%25-blue
+[wflow-test]: <<repo-url>>/actions/workflows/tests.yml

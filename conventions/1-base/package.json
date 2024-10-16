@@ -8,7 +8,7 @@
     "node": ">=<<node-version>>"
   },
   "scripts": {
-    "test": "node --test --experimental-test-coverage --test-coverage-branches=<<coverage>> --test-coverage-lines=<<coverage>> --test-coverage-functions=<<coverage>>"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

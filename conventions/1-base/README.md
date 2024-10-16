@@ -1,7 +1,3 @@
-```badge
-![Node Current][node-lts]
-```
-
 # <<name>>
 
 > <<description>>[^1]  
@@ -60,6 +56,5 @@ The [<<license>> License][license]
 
 [^1]: Hello world, this is a footnote.
 
-[node-lts]: https://img.shields.io/node/v-lts/%40nicholaswmin%2Ffsm
 [author-url]: <<author-url>>
 [license]: ./LICENSE

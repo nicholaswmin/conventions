@@ -6,7 +6,7 @@
   "exports": "./index.js",
   "scripts": {
     "test": "node --test",
-    "new": "node index.js --dirpaths"
+    "new": "node index.js"
   },
   "repository": {
     "type": "git",
