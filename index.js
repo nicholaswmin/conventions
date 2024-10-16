@@ -1,6 +1,6 @@
 import { join } from 'node:path'
-import { Token } from './src/conventions/classes/index.js'
-import { FSConventions, writeRepoToDir } from './src/conventions/fs/index.js'
+import { Token } from './src/builder/classes/index.js'
+import { FSConventions, writeRepoToDir } from './src/builder/fs/index.js'
 import { createApi, handleApiError } from './src/api/index.js'
 
 
