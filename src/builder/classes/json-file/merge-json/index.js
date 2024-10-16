@@ -10,7 +10,9 @@
 * @returns {object} New object with merged key/values
 */
 
-import { labels } from '../../../view/index.js'
+const labels = {
+  warn: str => '- warn: ' + str
+}
 
 const isPrimitive = val => (
   val === null || typeof val === 'object' || typeof val === 'function'

@@ -11,33 +11,39 @@ import { Token } from './token/index.js'
 class ConventionsRepo {
   constructor(conventions) {
     this.conventions = conventions
-    this.files = null
+    this.groups = []
+    this.files = []
   }
   
   merge() {
-    if (this.files) 
+    if (this.files.length) 
       throw Error('already processed')
 
-    this.files = this.#mergeFileGroups(this.conventions)
+    this.files = this.groups.map(group => group.merge())
 
     return this
   }
   
-  replace({ tokens }) {
-    this.conventions = this.#replacePlaceholders(tokens)
+  replace(tokens) {
+    this.conventions = this.conventions
+      .map(convention => convention.replacePlaceholders(tokens))
+    
+    return this
   }
   
-  #replacePlaceholders(tokens) {
-    return this.conventions.map(conv => conv.replacePlaceholders(tokens))
+  group() {
+    this.groups = this.#groupConventions(this.conventions)
+    
+    return this
   }
   
-  #mergeFileGroups(conventions) {
-    const mergeFilegroup = group => group.merge()
-
-    return this.#conventionsToFilegroups(conventions).map(mergeFilegroup)
+  info() {
+    return this.conventions
+      .map(convention => convention.name)
+      .sort()
   }
 
-  #conventionsToFilegroups(conventions) {
+  #groupConventions(conventions) {
     const groupByPath = (groups, file) => ({
       ...groups, [file.path]: groups[file.path] 
         ? groups[file.path].add(file) 

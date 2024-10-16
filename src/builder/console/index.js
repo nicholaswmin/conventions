@@ -85,16 +85,40 @@ export function treeToString(nodes, options = {}, level = 0, prefix = "") {
   return results
 }
 
-const labels = {
-  info: str => styleText(['blue'], '- info: ' + str),
-  warn: str => styleText(['yellow'], '- warn: ' + str),
-  success: str => styleText(['green'], '- info: ' + str)
-}
 
-console.log(labels.info('started ...'))
-
-const filesToTree = files => {
+const fileTree = files => {
   return `\n` + treeToString(filePathsToTree(files.map((file) => file.path)))
 }
 
-export { filesToTree, labels }
+const log = console.log
+const logger = Object.assign(console, {
+  log: (...args) => {
+    log(...args)
+    
+    return console
+  },
+  tree: files => {
+    log(fileTree(files))
+    
+    return console
+  },
+  info: str => {
+    log(styleText(['reset'], '- info: ' + str))
+    
+    return console
+  },
+  list: (title, arr) => {
+    console.log(styleText(['blue'], title + ':'), '\n')
+
+    arr.forEach(str => log(styleText(['reset'], ' - ' + str)))
+      
+    return console
+  },
+  success: (str = 'Success') => {
+    log(styleText(['green'], '- info: ' + str))
+    
+    return console
+  }
+})
+
+export { logger }
