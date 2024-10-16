@@ -246,6 +246,12 @@ don't forget to add the link somehere in the doc.
 - [ ] Fix rulesets (waiting for Github support reply)
 - [ ] Test no reflink links (inline)  
 
+##  Test
+
+```bash
+node --run test
+```
+
 ## Authors
 
 [@nicholaswmin][author-url]
