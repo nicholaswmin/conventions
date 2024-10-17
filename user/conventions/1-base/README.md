@@ -50,7 +50,7 @@ console.log(greeting)
 
 ## License
 
-The [<<license>> License][license]  
+The [MIT License][license]  
 
 ### Footnotes 
 

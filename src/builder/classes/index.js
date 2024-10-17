@@ -6,7 +6,6 @@ import { JSONFile } from './json-file/index.js'
 import { Document } from './document/index.js'
 
 import { FileGroup } from './file-group/index.js'
-import { Token } from './token/index.js'
 
 class ConventionsRepo {
   constructor(conventions) {
@@ -109,4 +108,4 @@ class Convention {
   }
 }
 
-export { ConventionsRepo, Convention, Token }
+export { ConventionsRepo, Convention }

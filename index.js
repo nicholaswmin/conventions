@@ -1,16 +1,18 @@
 import { join } from 'node:path'
-import { createRepo } from './src/builder/index.js'
-import { createApi, handleApiError } from './src/gh-api/index.js'
 
-const api = await createApi(join(import.meta.dirname, './extensions'), { 
+import { createTokens } from './src/tokenizer/index.js'
+import { createRepo } from './src/builder/index.js'
+import { createApi, handleApiError } from './src/github-api/index.js'
+
+const dir = import.meta.dirname
+
+const tokens = await createTokens({ dir: join(dir, 'user/tokens') })
+const reposr = await createRepo({ dir: join(dir, 'user/conventions'), tokens })
+const github = await createApi({ dir: join(dir, 'user/extensions') }, { 
   name: 'sample-repo',
   author: 'nicholaswmin'
 })
 
-const repo = await createRepo({
-  dir: join(import.meta.dirname, './conventions'),
-  tempDir: join(import.meta.dirname, './tmp')
-})
 
 /*
 // The API needs

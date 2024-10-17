@@ -16,7 +16,7 @@
   },
   "keywords": [<<keywords>>],
   "author": "@<<author>>",
-  "license": "<<license>>",
+  "license": "MIT",
   "bugs": {
     "url": "<<repo-url>>/issues"
   },

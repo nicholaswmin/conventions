@@ -1,5 +1,3 @@
-import { Token } from '../token/index.js'
-
 class File {
   constructor({ name, path, convention }, content) {
     Object.defineProperties(this, {
@@ -15,8 +13,7 @@ class File {
       token.placeholder, token.value
     ), this.content)
     
-    Token.getTags().forEach(this.throwIfContentIncludes.bind(this))
-
+    // @TODO throw if tags still exists
     return this
   }
   

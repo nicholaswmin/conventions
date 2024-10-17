@@ -1,0 +1,27 @@
+{
+  "repos": {
+    "create": {
+      "name": "<<name>>",
+      "description": "<<description>>",
+      "homepage": "<<repo-url>>",
+
+      "has_issues": true,
+      "has_projects": false,
+      "has_wiki": false,
+      "has_discussions": false,
+    
+      "gitignore_template": "Node",
+      "license_template": "MIT",
+      
+      "allow_squash_merge": true,
+      "allow_rebase_merge": true,
+      "delete_branch_on_merge": true
+    },
+    
+    "createPagesSite": {
+      "source": {
+        "branch": "main"
+      }
+    }
+  }
+}
