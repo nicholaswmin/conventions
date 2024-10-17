@@ -2,21 +2,12 @@ import { join, dirname } from 'node:path'
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import { ConventionsRepo, Convention } from '../classes/index.js'
 
-const writeRepoToDir = async (dir, files) => {
-  for (const file of files) {
-    const path = join(dir, file.path)
-
-    await mkdir(dirname(path), { recursive: true })
-    await writeFile(path, file.content) 
-  }
-}
-
-class FSConventions {
+class FSRepo {
   constructor(dir) {
     this.dir = dir
   }
   
-  async create() {
+  async get() {
     const conventions = await this.#getAscendingConventions(this.dir)
 
     for (const convention of conventions) {
@@ -29,6 +20,15 @@ class FSConventions {
     }
 
     return new ConventionsRepo(conventions)
+  }
+  
+  async set({ dir }, repo) {
+    for (const file of repo.files) {
+      const path = join(dir, file.path)
+  
+      await mkdir(dirname(path), { recursive: true })
+      await writeFile(path, file.content) 
+    }
   }
   
   async #getAscendingConventions(path) {
@@ -58,4 +58,4 @@ class FSConventions {
   }
 }
 
-export { FSConventions, writeRepoToDir }
+export { FSRepo }

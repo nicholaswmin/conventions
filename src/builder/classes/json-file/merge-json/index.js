@@ -11,7 +11,7 @@
 */
 
 const labels = {
-  warn: str => '- warn: ' + str
+  warn: str => '\n' + ' warn: ' + str + '\n'
 }
 
 const isPrimitive = val => (

@@ -15,8 +15,6 @@
 // The above copyright notice and this permission notice shall be included in 
 // all copies or substantial portions of the Software.
 
-import { styleText } from 'node:util'
-
 const defaultOptions = {
   formatLabel: (node) => node.name,
   separator: "/",
@@ -86,39 +84,8 @@ export function treeToString(nodes, options = {}, level = 0, prefix = "") {
 }
 
 
-const fileTree = files => {
-  return `\n` + treeToString(filePathsToTree(files.map((file) => file.path)))
-}
+const treeview = files => 
+  `\n` + treeToString(filePathsToTree(files.map((file) => file.path)))
 
-const log = console.log
-const logger = Object.assign(console, {
-  log: (...args) => {
-    log(...args)
-    
-    return console
-  },
-  tree: files => {
-    log(fileTree(files))
-    
-    return console
-  },
-  info: str => {
-    log(styleText(['reset'], '- info: ' + str))
-    
-    return console
-  },
-  list: (title, arr) => {
-    console.log(styleText(['blue'], title + ':'), '\n')
 
-    arr.forEach(str => log(styleText(['reset'], ' - ' + str)))
-      
-    return console
-  },
-  success: (str = 'Success') => {
-    log(styleText(['green'], '- info: ' + str))
-    
-    return console
-  }
-})
-
-export { logger }
+export { treeview }

@@ -79,7 +79,7 @@ class Convention {
     }, content))
   }
   
-  replacePlaceholders(tokens = []) {
+  replacePlaceholders(tokens) {
     this.files.forEach(file => file.replacePlaceholders(tokens))  
     
     return this

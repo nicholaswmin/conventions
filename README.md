@@ -244,6 +244,8 @@ don't forget to add the link somehere in the doc.
 - [ ] Fix TOC markdown updates (delete it and recreate it?)
 - [ ] `Tokens` should be `extended` into appropriate types:
   - i.e: `NpmVersionToken extends Token` which validates an npm version string
+- [ ] Use autocomplete prompt for license (allow UNLICENSED)
+- [ ] Fix tokenizer review
 
 ##  Test
 

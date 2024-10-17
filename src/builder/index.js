@@ -1,28 +1,18 @@
-import { FSConventions, writeRepoToDir } from './fs/index.js'
-import { logger as console } from './console/index.js'
+import { FSRepo } from './fs-repo/index.js'
+import { treeview } from './console/index.js'
 
 const createRepo = async ({ dir, tempdir }, { tokens }) => {
-  const fsc = new FSConventions(dir)
-  const repo = await fsc.create()
+  const fsr = new FSRepo(dir)
+  const repo = await fsr.get()
 
-  console
-    .list('conventions', repo.info())
-    .log('\n')
-    .info('Replacing tokens...')
-
-  repo.replace(tokens)
-
-  console
-    .success()
-    .info('Merging tokens ..')
-
-  repo.group().merge()
+  repo
+    .replace(tokens)
+    .group()
+    .merge()
   
-  console.success()
-    .info('Saving repo to ./tmp')
-    .tree(repo.files)
+  console.log(treeview(repo.files))
 
-  //await writeRepoToDir(tempdir, repo.files)
+  await fsr.set({ dir: tempdir }, repo)
   
   return repo
 }

@@ -34,25 +34,24 @@ class CompositeToken extends Token {
   }
 }
 
-class TokenList {
+class Tokenlist {
   constructor() {
-    Object.defineProperty(this, 'Tokens', { value: [], writable: true })
+    Object.defineProperty(this, 'Tokens', { 
+      value: [], writable: true 
+    })
+  }
+  
+  replace(content) {
+    return this.tokens.reduce((replaced, token) => replaced.replaceAll(
+      token.placeholder, token.value
+    ), content)
+    
+    // @TODO throw if tags still exists
+    return this
   }
 
   add(token) {
     this.Tokens.push(token)
-  }
-  
-  toArray() {
-    this.Tokens = Object.values(this.Tokens)
-  }
-  
-  toObject() {
-    this.Tokens = this.Tokens.reduce((acc, T) => ({ 
-      ...acc, [T.name]: T 
-    }), {})
-
-    return this
   }
   
   sort(sortFn) {
@@ -62,14 +61,21 @@ class TokenList {
   }
   
   setPromptAnswers(answers) {
-    // @TODO this can be improved, there is a ton 
-    // of (probably) unnecessary conversion of one format to another.
-    const toEntryToken = key => [key, new this.Tokens[key](answers[key])]
+    const isCompToken = T => Object.getPrototypeOf(T).name === 'CompositeToken'
 
-    const tokns = Object.fromEntries(Object.keys(answers).map(toEntryToken))
-    const compositedTokns = this.#instantiateCompositeTokens(tokns)
-    
-    Object.assign(this, { ...tokns, ...compositedTokns })
+    const tokens = Object.keys(answers).reduce((acc, key) => {
+      const Token = this.Tokens.find(Token => Token.name === key)
+      const token = new Token(answers[key])
+      return { ...acc, [token.key]: token }
+    }, {})
+
+    const compTokens = this.Tokens.filter(isCompToken)
+      .reduce((acc, CompToken) => {
+        const token = new CompToken(CompToken.from(tokens))
+        return { ...acc, [token.key]: token }
+      }, {})
+
+    this.tokens = Object.values({ ...tokens, ...compTokens })
     
     return this
   }
@@ -91,20 +97,6 @@ class TokenList {
       })
     }))
   }
-  
-  #toKeyedValues(tokens) {
-    const toKeyValue = (acc, { key, value }) => ({ ...acc, [key]: value })
-
-    return Object.values(tokens).reduce(toKeyValue, {})
-  }
-  
-  #instantiateCompositeTokens(tokens) {
-    const instantiate = T => [ T.name, new T(T.from(this.#toKeyedValues(tokens))) ]
-    const isComposited = T => Object.getPrototypeOf(T).name === 'CompositeToken'
-
-    return Object.assign({}, tokens, Object.fromEntries(Object.values(this.Tokens)
-      .filter(isComposited).map(instantiate)))
-  }
 }
 
-export { TokenList, Token, CompositeToken }
+export { Tokenlist, Token, CompositeToken }

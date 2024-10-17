@@ -8,20 +8,8 @@ class File {
     })
   }
   
-  replacePlaceholders(tokens = []) {
-    this.content = tokens.reduce((replaced, token) => replaced.replaceAll(
-      token.placeholder, token.value
-    ), this.content)
-    
-    // @TODO throw if tags still exists
-    return this
-  }
-  
-  throwIfContentIncludes(tag) {
-    if (!this.content.includes(tag))
-      return false
-
-    throw Error(`${this.name} still contains unreplaced tag: ${tag}`)
+  replacePlaceholders(tokens) {
+    this.content = tokens.replace(this.content)
   }
   
   static matches({ name, parentPath }) {
