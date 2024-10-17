@@ -1,10 +1,8 @@
 import { loadDirModules } from './ext-loader.js'
-import { Repo } from './repo.js'
 
 class Api {
-  constructor(api, { name, author }) {
+  constructor(api) {
     this.api = api
-    this.repo = new Repo({ name, author })
   }
   
   async init(dirpath) {
