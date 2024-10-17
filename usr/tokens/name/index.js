@@ -1,6 +1,7 @@
 import { Token } from '../../../src/tokenizer/index.js'
 
 class Name extends Token {
+  static get position() { return 0 } 
   static async info() {
     return {
       type: 'text',

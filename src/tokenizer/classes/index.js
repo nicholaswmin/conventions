@@ -1,3 +1,6 @@
+const isPromptable = T => Object.getPrototypeOf(T).name === 'Token'
+const isPromptableEntry = ([_, T]) => isPromptable(T)
+
 class Token { 
   static get openingTag() { return '<<' }
   static get closingTag() { return '>>' }
@@ -33,23 +36,40 @@ class CompositeToken extends Token {
 
 class TokenList {
   constructor() {
-    Object.defineProperty(this, 'Tokens', { value: {} })
+    Object.defineProperty(this, 'Tokens', { value: [], writable: true })
   }
 
   add(token) {
-    this.Tokens[token.name] = token
+    this.Tokens.push(token)
+  }
+  
+  toArray() {
+    this.Tokens = Object.values(this.Tokens)
+  }
+  
+  toObject() {
+    this.Tokens = this.Tokens.reduce((acc, T) => ({ 
+      ...acc, [T.name]: T 
+    }), {})
+
+    return this
+  }
+  
+  sort(sortFn) {
+    this.Tokens = this.Tokens.sort(sortFn)
+
+    return this
   }
   
   setPromptAnswers(answers) {
     // @TODO this can be improved, there is a ton 
     // of (probably) unnecessary conversion of one format to another.
-    const instantiateToken = key => [key, new this.Tokens[key](answers[key])]
+    const toEntryToken = key => [key, new this.Tokens[key](answers[key])]
 
-    const tokns = Object.fromEntries(Object.keys(answers).map(instantiateToken))
+    const tokns = Object.fromEntries(Object.keys(answers).map(toEntryToken))
     const compositedTokns = this.#instantiateCompositeTokens(tokns)
     
     Object.assign(this, { ...tokns, ...compositedTokns })
-    Object.freeze(this)
     
     return this
   }

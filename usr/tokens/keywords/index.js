@@ -1,6 +1,7 @@
 import { Token } from '../../../src/tokenizer/index.js'
 
 class Keywords extends Token {
+  static get position() { return 6 } 
   static async info() {
     return {
       type: 'list',

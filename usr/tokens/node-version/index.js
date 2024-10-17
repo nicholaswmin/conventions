@@ -2,6 +2,7 @@ import { Token } from '../../../src/tokenizer/index.js'
 import { getLatestMajorVersion, getOwnMajorVersion } from './src/node-v.js'
 
 class Node_Version extends Token {
+  static get position() { return 5 } 
   static async info() {
     const nodev = {
       own: getOwnMajorVersion(),
@@ -11,6 +12,7 @@ class Node_Version extends Token {
     return {
       type: 'select',
       description: 'min. supported Node version',
+      position: 5,
       warn: 'version is too old',
       choices: Array.from({ length: 7 }, (_, i) => ({
         description: `own: v${nodev.own},\nlatest: v${nodev.latest}`,

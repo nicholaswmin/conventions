@@ -1,20 +1,21 @@
 import { Token } from '../../../src/tokenizer/index.js'
 
-class Description extends Token {  
+class Author extends Token {
+  static get position() { return 1 } 
   static async info() {
     return {
       type: 'text',
-      description: 'repository description'
+      description: 'repository author'
     }
   }
   
   static async validate(value) { 
-    return new RegExp('^[A-Za-z0-9., ]+$').test(value)
+    return true
   }
   
   static transform(value) {
-    return value
+    return value.replaceAll('@', '')
   }
 }
 
-export default Description
+export default Author

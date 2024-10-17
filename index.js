@@ -4,10 +4,10 @@ import { createTokens } from './src/tokenizer/index.js'
 import { createRepo } from './src/builder/index.js'
 import { createApi, handleError } from './src/github-api/index.js'
 
-const usrdir = join(import.meta.dirname, './user')
+const usrdir = join(import.meta.dirname, './usr')
 
 const tokens = await createTokens({ dir: join(usrdir, 'tokens') })
-const reposr = await createRepo({ dir: join(usrdir, 'conventions'), tokens })
+const ghrepo = await createRepo({ dir: join(usrdir, 'conventions') },{ tokens })
 const github = await createApi({ dir: join(usrdir, 'extensions') })
 
 /*
