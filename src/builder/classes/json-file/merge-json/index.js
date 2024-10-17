@@ -10,9 +10,7 @@
 * @returns {object} New object with merged key/values
 */
 
-const labels = {
-  warn: str => '\n' + ' warn: ' + str + '\n'
-}
+const warning = str => '\n' + ' warn: ' + str + '\n'
 
 const isPrimitive = val => (
   val === null || typeof val === 'object' || typeof val === 'function'
@@ -27,7 +25,7 @@ function mergeJSON(objects = []) {
       const oVal = obj[key]
       
       if (isPrimitive(pVal) && pVal)
-        console.warn(labels.warn(`overwriting JSON key: "${key}"`))
+        console.warn(warning(`overwriting JSON key: "${key}"`))
 
       if (Array.isArray(pVal) && Array.isArray(oVal)) {
         prev[key] = pVal.concat(...oVal)
