@@ -2,7 +2,7 @@ import { join } from 'node:path'
 
 import { createTokens } from './src/tokenizer/index.js'
 import { createRepo } from './src/builder/index.js'
-import { createApi, handleApiError } from './src/github-api/index.js'
+import { createApi, handleError } from './src/github-api/index.js'
 
 const dir = import.meta.dirname
 
@@ -50,7 +50,7 @@ try {
       console.log(key, value.status)
   })
 } catch (err) {
-  await handleApiError(err)
+  await handleError(err)
 
   throw err
 }
