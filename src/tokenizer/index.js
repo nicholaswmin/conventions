@@ -34,7 +34,7 @@ const createTokens = async ({ dir, env }) => {
 
 const createTestTokens = injected => {
   if (process.env.NODE_ENV !== 'test')
-    throw new Error('Cannot be called unless: `NODE_ENV === "test"`')
+    throw new Error('Cannot be called unless `NODE_ENV=test`')
 
   Prompts.default.inject(injected)
 
