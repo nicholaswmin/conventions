@@ -5,7 +5,7 @@ export default () => ({
     return {
       type: 'text',
       description: 'description',
-      initial: "a package 'foo'' that does 'bar'",
+      initial: `a package that does some... stuff`,
 
       minlength: 1,
       maxlength: 150,
