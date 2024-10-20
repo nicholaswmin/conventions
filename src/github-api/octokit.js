@@ -6,18 +6,10 @@ import {
   onRequest,
   onResponse, 
   onError, 
+
   onRateLimit, 
   onSecondaryRateLimit 
 } from './hooks.js'
-
-const getToken = async () => {
-  const token = process.env['GITHUB_TOKEN']
-
-  if (!token || !token.trim().length)
-    throw Error(`Missing (or empty) env. var: "GITHUB_TOKEN"`)
-
-  return token.trim()
-}
 
 const createOctokitRest = async () => {
   // req. token scopes: 'repo', 'workflow', 'write:packages', 'delete_repo'
@@ -29,10 +21,7 @@ const createOctokitRest = async () => {
       // Github defaults: 400, 401, 403, 404, 422, and 451.
       doNotRetry: [400, 401, 403, 404, 422, 451]
     },
-    throttle: {
-      onRateLimit: onRateLimit,
-      onSecondaryRateLimit: onSecondaryRateLimit
-    }
+    throttle: { onRateLimit, onSecondaryRateLimit }
   })
   
   octokit.hook.before('request', onRequest)
@@ -40,6 +29,16 @@ const createOctokitRest = async () => {
   octokit.hook.after('request', onResponse)
 
   return octokit.rest
+}
+
+// @TODO store in `.netrc`
+const getToken = async () => {
+  const token = process.env['GITHUB_TOKEN']
+
+  if (!token || !token.trim().length)
+    throw Error(`Missing (or empty) env. var: "GITHUB_TOKEN"`)
+
+  return token.trim()
 }
 
 export { createOctokitRest }

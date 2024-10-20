@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# this script reads the matched line + 2 following lines after matching with
+# search term: "xxx.xxx.xxx". The search term is intentionally hardcoded
+# and not passed as a parameter.
+# 
+# This is done to prevent loading the entire .netrc file of a user 
+# in our own process.
+# 
+# Parameters: 
+# - NRCPATH: path of the netrc file
+
+CLEAN_NRCPATH=${NRCPATH//[^/a-zA-Z0-9]/}
+
+grep -A2 "api.github.com" "$CLEAN_NRCPATH" | grep -v -- "^--$"
