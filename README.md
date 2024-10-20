@@ -246,7 +246,7 @@ don't forget to add the link somehere in the doc.
   - i.e: `NpmVersionToken extends Token` which validates an npm version string
 - [ ] Use autocomplete prompt for license (allow UNLICENSED)
 - [ ] Fix tokenizer review
-- [ ] Each convention should have its own tokens
+- [ ] !important: Each convention should have its own tokens
 - [ ] Allow preanswering questions via CLI args
 - [ ] Ditch some composed tokens for complex prompts. 
       i.e: token `author-url` can be removed; then simply have `author` 
