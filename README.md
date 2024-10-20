@@ -251,12 +251,15 @@ don't forget to add the link somehere in the doc.
 - [ ] Ditch some composed tokens for complex prompts. 
       i.e: token `author-url` can be removed; then simply have `author` 
       return an object with `name` and `url`.
+- [ ] Fix the unfinished `src/tokenizer/validator.test.js`
 
 ##  Test
 
 ```bash
 node --run test
 ```
+
+> **important:** tests *must* be run with `NODE_ENV=test`
 
 ## Authors
 
