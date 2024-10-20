@@ -1,17 +1,23 @@
+import * as fs from 'node:fs/promises'
 import { join } from 'node:path'
 
 import { createTokens } from './src/tokenizer/index.js'
 import { createRepo } from './src/builder/index.js'
-import { createApi, handleError } from './src/github-api/index.js'
+import { createApi } from './src/github-api/index.js'
 
 const userdir = join(import.meta.dirname, './usr')
 const tempdir = join(import.meta.dirname, './tmp')
 
-const tokens = await createTokens({ dir: join(userdir, 'tokens') })
+
+const github = await createApi({ dir: join(userdir, 'extensions') })
+
+const tokens = await createTokens({ dir: join(userdir, 'tokens'), 
+  env: { user: github.user, fetch, fs },
+})
+
 const cvrepo = await createRepo(
   { tempdir, dir: join(userdir, 'conventions') }, { tokens }
 )
-const github = await createApi({ dir: join(userdir, 'extensions') })
 
 /*
 // The API needs

@@ -50,11 +50,11 @@ console.log(greeting)
 
 ## License
 
-The [MIT License][license]  
+[<<license.id>>][license]  
 
 ### Footnotes 
 
 [^1]: Hello world, this is a footnote.
 
 [author-url]: <<author-url>>
-[license]: ./LICENSE
+[license]: <<license.localUrl>>

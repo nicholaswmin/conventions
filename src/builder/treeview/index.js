@@ -14,6 +14,14 @@
 //
 // The above copyright notice and this permission notice shall be included in 
 // all copies or substantial portions of the Software.
+// 
+// ---
+// 
+// Minor code-style modifications
+// 
+// Copyright (c) 2024 @nicholaswmin
+// 
+// MIT-0 No Attribution License
 
 const defaultOptions = {
   formatLabel: (node) => node.name,
@@ -83,9 +91,7 @@ export function treeToString(nodes, options = {}, level = 0, prefix = "") {
   return results
 }
 
-
 const treeview = files => 
   `\n` + treeToString(filePathsToTree(files.map((file) => file.path)))
-
 
 export { treeview }

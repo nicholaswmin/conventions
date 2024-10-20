@@ -1,12 +1,12 @@
 import { FSRepo } from './fs-repo/index.js'
-import { treeview } from './console/index.js'
+import { treeview } from './treeview/index.js'
 
 const createRepo = async ({ dir, tempdir }, { tokens }) => {
   const fsr = new FSRepo(dir)
   const repo = await fsr.get()
 
   repo
-    .replace(tokens)
+    .replaceAll(tokens)
     .group()
     .merge()
   

@@ -1,30 +1,44 @@
 import { join } from 'node:path'
 import { readdir } from 'node:fs/promises'
+import * as Prompts from 'prompts'
 
-import * as promptsdef from 'prompts'
-import { Tokenlist, Token, CompositeToken } from './classes/index.js'
+import { TokenList } from './classes/token-list.js'
 
-const prompts = promptsdef.default
+class UserAbortError extends Error {}
 
 const loadTokens = async ({ dir }) => {
   const isDirectory  = dirent => dirent.isDirectory()
-  const ascendingPos = (a, b) => a.position - b.position
+  const importESM    = path => import(join(path, 'index.js'))
   const readOptions  = { withFileTypes: true }
   const directories  = (await readdir(dir, readOptions)).filter(isDirectory)
   
-  const list = new Tokenlist()
+  const list = new TokenList()
 
   for (const { parentPath, name } of directories)
-    list.add((await import(join(parentPath, name, 'index.js') )).default)
+    list.add(name, (await importESM(join(parentPath, name))).default())
 
-  return list.sort(ascendingPos)
+  return list.sort()
 }
 
-const createTokens = async ({ dir }) => {
+const createTokens = async ({ dir, env }) => {
   const tokens = await loadTokens({ dir })
-  const quests = await tokens.getPromptQuestions()
+  const prompts = await tokens.getPrompts(env)
+  const answers = await Prompts.default(prompts, {
+    onCancel: prompt => {
+      throw new UserAbortError('User cancelled prompt')
+    }
+  })
   
-  return tokens.setPromptAnswers(await prompts(quests))
+  return tokens.setPromptAnswers(answers, env)
 }
 
-export { Token, CompositeToken, createTokens }
+const createTestTokens = injected => {
+  if (process.env.NODE_ENV !== 'test')
+    throw new Error('Cannot be called unless: `NODE_ENV === "test"`')
+
+  Prompts.default.inject(injected)
+
+  return async (...args) => await createTokens(...args)
+}
+
+export { createTokens, createTestTokens }

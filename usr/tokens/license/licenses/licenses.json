@@ -1,0 +1,49 @@
+[
+  {
+    "id": "MIT",
+    "description": "Popular, permissive, open-source.",
+    "reference": "https://spdx.org/licenses/MIT.html",
+    "detailsUrl": "https://spdx.org/licenses/MIT.json",
+    "localUrl": "./LICENSE"
+  },
+
+  {
+    "id": "ISC",
+    "description": "Minimal MIT-equivalent.",
+    "reference": "https://spdx.org/licenses/ISC.html",
+    "detailsUrl": "https://spdx.org/licenses/ISC.json",
+    "localUrl": "./LICENSE"
+  },
+  
+  {
+    "id": "UNLICENSED",
+    "description": "No License. For closed-source.",
+    "reference": "https://docs.npmjs.com/cli/v7/configuring-npm/package-json#license",
+    "detailsUrl": "https://github.com/npm/npm/issues/10621",
+    "localUrl": "https://choosealicense.com/no-permission/"
+  },
+
+  {
+    "id": "CC-BY-NC-4.0",
+    "description": "Use & share non-commercially.",
+    "reference": "https://spdx.org/licenses/CC-BY-NC-4.0.html",
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-4.0.json",
+    "localUrl": "./LICENSE"
+  },
+
+  {
+    "id": "MIT-0",
+    "description": "MIT without author attribution.",
+    "reference": "https://spdx.org/licenses/MIT-0.html",
+    "detailsUrl": "https://spdx.org/licenses/MIT-0.json",
+    "localUrl": "./LICENSE"
+  },
+
+  {
+    "id": "Unlicense",
+    "description": "Nothing to do with \"UNLICENSED\".",
+    "reference": "./Unlicense.html",
+    "detailsUrl": "http://spdx.org/licenses/Unlicense.json",
+    "localUrl": "./LICENSE"
+  }
+]

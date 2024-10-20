@@ -1,21 +1,18 @@
-import { Token } from '../../../src/tokenizer/index.js'
+export default () => ({
+  position: 2,
 
-class Description extends Token {  
-  static get position() { return 2 } 
-  static async info() {
+  async prompt() {
     return {
       type: 'text',
-      description: 'repository description'
+      description: 'description',
+      initial: "a package 'foo'' that does 'bar'",
+
+      minlength: 1,
+      maxlength: 150,
+        
+      validate: v => /^[A-Za-z0-9.,'()` ]+$/.test(v) || (
+        'only alphanumeric(abc123), spaces(  ), comma(,) & periods(.)'
+      )
     }
   }
-  
-  static async validate(value) { 
-    return new RegExp('^[A-Za-z0-9., ]+$').test(value)
-  }
-  
-  static transform(value) {
-    return value
-  }
-}
-
-export default Description
+})

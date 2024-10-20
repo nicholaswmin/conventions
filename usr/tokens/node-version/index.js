@@ -1,35 +1,27 @@
-import { Token } from '../../../src/tokenizer/index.js'
-import { getLatestMajorVersion, getOwnMajorVersion } from './src/node-v.js'
+import { listUsefulReleases } from './releases/index.js'
 
-class Node_Version extends Token {
-  static get position() { return 5 } 
-  static async info() {
-    const nodev = {
-      own: getOwnMajorVersion(),
-      latest: await getLatestMajorVersion() || getOwnMajorVersion()
-    }
+export default () => ({
+  position: 5,
+
+  async prompt({ fetch }) {
+    const rels = await fetch('https://nodejs.org/download/release/index.json')
 
     return {
-      type: 'select',
-      description: 'min. supported Node version',
-      position: 5,
-      warn: 'version is too old',
-      choices: Array.from({ length: 7 }, (_, i) => ({
-        description: `own: v${nodev.own},\nlatest: v${nodev.latest}`,
-        title: nodev.latest - i, 
-        value: nodev.latest - i,
-        disabled: i > 4
-      }))
+      type: 'autocomplete',
+      description: 'min. Node version',
+      choices: listUsefulReleases(await rels.json()).map(release => {
+        return {
+          title: release.version,
+          description: release.description
+        }
+      }),
+
+      validate: val => {
+        return (new RegExp('^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?$').test(val)) || 
+          'Must follow format: x.x.x'
+      },
+      
+      format: val => val.trim().replaceAll('v', '')
     }
   }
-
-  static async validate(value) {
-    return Number.isSafeInteger(+value) || 'Invalid value'
-  }
-  
-  static transform(value) {
-    return value
-  }
-}
-
-export default Node_Version
+})

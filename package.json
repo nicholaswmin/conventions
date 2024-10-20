@@ -5,7 +5,7 @@
   "type": "module",
   "exports": "./index.js",
   "scripts": {
-    "test": "node --test",
+    "test": "NODE_ENV=test node --test",
     "new": "node index.js"
   },
   "repository": {

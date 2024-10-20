@@ -8,8 +8,14 @@ class File {
     })
   }
   
-  replacePlaceholders(tokens) {
-    this.content = tokens.replace(this.content)
+  replaceAll(tokens) {
+    try {
+      this.content = tokens.replaceAll(this.content)      
+    } catch (err) {
+      throw Object.assign(err, { 
+        message: `${err.message} at path: ${this.path}, of: ${this.convention}.`
+      })
+    }
   }
   
   static matches({ name, parentPath }) {

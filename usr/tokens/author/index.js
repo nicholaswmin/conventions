@@ -1,21 +1,22 @@
-import { Token } from '../../../src/tokenizer/index.js'
+const noat = val => val.replaceAll('@', '')
 
-class Author extends Token {
-  static get position() { return 1 } 
-  static async info() {
+export default () => ({
+  position: 1,
+
+  async prompt({ user }) {
     return {
       type: 'text',
-      description: 'repository author'
+      initial: user.username,
+      description: 'author',
+      minlength: 1,
+      maxlength: 100, // https://github.com/evalEmpire/gitpan/issues/123
+
+      validate: val => {
+        return /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(noat(val)) ||
+          'must be a Github username'
+      },
+
+      format: noat
     }
   }
-  
-  static async validate(value) { 
-    return true
-  }
-  
-  static transform(value) {
-    return value.replaceAll('@', '')
-  }
-}
-
-export default Author
+})

@@ -1,20 +1,32 @@
 import { loadDirModules } from './ext-loader.js'
 
+class User {
+  constructor({ username }) {
+    // `user` is available `Token.env` so dont mess up
+    this.username = username
+    
+    Object.freeze(this)
+  }
+  
+  static fromData({ data }) {
+    return new this({ username: data.login })
+  }
+}
+
 class Api {
   constructor(api) {
     this.api = api
+    this.user = null
   }
   
   async init(dirpath) {
     await this.#loadExtensions(dirpath)
 
-    // @TODO
-    // - get repo author (not always user) and: 
-    // `repo.setAuthor({ author })`
+    Object.defineProperty(this, 'user', {
+      value: User.fromData(await this.api.users.getAuthenticated()),
+      enumerable: true
+    })
 
-    // @TODO
-    // - get repo details (if exists) and: 
-    // `repo.setDetails({ descriptions, node_version, ... })`
     return this
   }
   

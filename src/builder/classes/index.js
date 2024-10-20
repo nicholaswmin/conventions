@@ -23,9 +23,9 @@ class ConventionsRepo {
     return this
   }
   
-  replace(tokens) {
+  replaceAll(tokens) {
     this.conventions = this.conventions
-      .map(convention => convention.replacePlaceholders(tokens))
+      .map(convention => convention.replaceAll(tokens))
     
     return this
   }
@@ -79,8 +79,8 @@ class Convention {
     }, content))
   }
   
-  replacePlaceholders(tokens) {
-    this.files.forEach(file => file.replacePlaceholders(tokens))  
+  replaceAll(tokens) {
+    this.files.forEach(file => file.replaceAll(tokens))  
     
     return this
   }

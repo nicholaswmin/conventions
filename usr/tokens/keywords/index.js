@@ -1,25 +1,17 @@
-import { Token } from '../../../src/tokenizer/index.js'
+export default () => ({
+  position: 7,
 
-class Keywords extends Token {
-  static get position() { return 6 } 
-  static async info() {
+  async prompt() {
     return {
       type: 'list',
       separator: ',',
-      description: 'repository keywords'
+
+      optional: true,
+      description: 'repository keywords',
+
+      validate: val => new RegExp('^[A-Za-z0-9, ]+$').test(val) || 'bad format',
+
+      format: val => val ? val.map(keyword => `"${keyword}"`).join(', ') : ""
     }
   }
-  
-  static async validate(value) { 
-    return new RegExp('^[A-Za-z0-9, ]+$').test(value) || 'invalid format'
-  }
-  
-  static transform(value) {
-    const toDoubleQuoteLowerCase = value => `"${value.toLowerCase().trim()}"`
-    const isNotWhitespace = value => !!value.trim().length
-
-    return value.filter(isNotWhitespace).map(toDoubleQuoteLowerCase)
-  }
-}
-
-export default Keywords
+})

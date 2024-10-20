@@ -1,24 +1,19 @@
-import { Token } from '../../../src/tokenizer/index.js'
+export default () => ({
+  position: 0,
 
-class Name extends Token {
-  static get position() { return 0 } 
-  static async info() {
+  async prompt() {
     return {
       type: 'text',
-      description: 'repository name'
+      initial: 'foo-bar',
+      description: 'package',
+      minlength: 5,
+      maxlength: 100, // https://github.com/evalEmpire/gitpan/issues/123
+    
+      format: v => v.split(' ').filter(v => v.trim()).join('-'),
+    
+      validate: v => /^[A-Za-z0-9._\- ]+$/.test(v) || (
+        'only alphanumeric(foo123), hyphens(-) and commas(,)'
+      )
     }
   }
-
-  static async validate(value) {
-    return true
-    // test for scoped:     
-    // return new RegExp('@[a-z\\d][\\w-.]+/[a-z\\d][\\w-.]*').test(value)
-    return /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(value)
-  }
-  
-  static transform(value) {
-    return value
-  }
-}
-
-export default Name
+})

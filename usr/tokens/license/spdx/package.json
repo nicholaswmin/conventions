@@ -1,0 +1,9 @@
+{
+  "description": "An SPDX validator",
+  "type": "module",
+  "exports": "./index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
