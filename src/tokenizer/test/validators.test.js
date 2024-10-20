@@ -27,7 +27,6 @@ test('#createTokens prompt validators', async t => {
           // @TODO not gonna work we need our extended validators
           const result = await prompt.validate('a')
           
-          console.log(result)
         })
       })
     })

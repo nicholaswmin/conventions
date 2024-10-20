@@ -1,6 +1,14 @@
 import { Octokit } from '@octokit/rest'
 import { retry } from '@octokit/plugin-retry'
-import { onError, onResponse } from './hooks.js'
+import { throttling } from '@octokit/plugin-throttling'
+
+import { 
+  onRequest,
+  onResponse, 
+  onError, 
+  onRateLimit, 
+  onSecondaryRateLimit 
+} from './hooks.js'
 
 const getToken = async () => {
   const token = process.env['GITHUB_TOKEN']
@@ -13,13 +21,21 @@ const getToken = async () => {
 
 const createOctokitRest = async () => {
   // req. token scopes: 'repo', 'workflow', 'write:packages', 'delete_repo'
+  const RetryThrottledOctokit = Octokit.plugin(retry, throttling)
 
-  const octokit = new (Octokit.plugin(retry))({ 
+  const octokit = new RetryThrottledOctokit({ 
     auth: await getToken(),
-    retry: { doNotRetry: [401, 404] },
-    request: { retries: 1, retryAfter: 1 }
+    retry: {
+      // Github defaults: 400, 401, 403, 404, 422, and 451.
+      doNotRetry: [400, 401, 403, 404, 422, 451]
+    },
+    throttle: {
+      onRateLimit: onRateLimit,
+      onSecondaryRateLimit: onSecondaryRateLimit
+    }
   })
   
+  octokit.hook.before('request', onRequest)
   octokit.hook.error('request', onError)
   octokit.hook.after('request', onResponse)
 

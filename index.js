@@ -1,29 +1,25 @@
 import * as fs from 'node:fs/promises'
+import { styleText } from 'node:util'
 import { join } from 'node:path'
 
 import { createTokens } from './src/tokenizer/index.js'
 import { createRepo } from './src/builder/index.js'
 import { createApi } from './src/github-api/index.js'
 
-const userdir = join(import.meta.dirname, './usr')
-const tempdir = join(import.meta.dirname, './tmp')
-
-
-const github = await createApi({ dir: join(userdir, 'extensions') })
-
-const tokens = await createTokens({ dir: join(userdir, 'tokens'), 
-  env: { user: github.user, fetch, fs },
-})
-
-const cvrepo = await createRepo(
-  { tempdir, dir: join(userdir, 'conventions') }, { tokens }
-)
-
-/*
-// The API needs
-// - Uploadable Documents
-// - Rulesets
 try {
+  const userdir = join(import.meta.dirname, './usr')
+  const tempdir = join(import.meta.dirname, './tmp')
+  
+  const github = await createApi({ dir: join(userdir, 'extensions') })
+  
+  const tokens = await createTokens({ dir: join(userdir, 'tokens'), 
+    env: { user: github.user, fetch, fs },
+  })
+  
+  const cvrepo = await createRepo(
+    { tempdir, dir: join(userdir, 'conventions') }, { tokens }
+  ) 
+  /*
   const results = {
     ...await api.repos.createOrOverwrite({ 
       description: 'A repo autocreated by gh-good-repo',
@@ -54,9 +50,10 @@ try {
     else 
       console.log(key, value.status)
   })
+  */
 } catch (err) {
-  await handleError(err)
-
-  throw err
+  console.error(styleText('red', err.constructor.name + ': ' + err.message))
+  console.log(err.stack)
+  
+  setTimeout(() => process.exit(1), 10)
 }
-*/
